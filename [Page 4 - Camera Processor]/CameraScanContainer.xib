@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CameraScanContainer">
+            <connections>
+                <outlet property="buttonClose" destination="6xv-ED-tSE" id="sF7-BQ-ojC"/>
+                <outlet property="buttonOkay" destination="cMy-yH-NkK" id="UKb-nL-CnE"/>
+                <outlet property="buttonRetake" destination="9sK-Rj-i09" id="oUH-lQ-BDA"/>
+                <outlet property="imageViewArrow1" destination="TaS-Fr-7aq" id="lq7-IS-lT0"/>
+                <outlet property="imageViewArrow2" destination="CpM-zg-mvW" id="6KE-5G-cD9"/>
+                <outlet property="imageViewArrow3" destination="lUH-h8-iZv" id="Hru-ez-n5p"/>
+                <outlet property="imageViewArrow4" destination="Hoa-bY-yOc" id="pWx-4g-Ltv"/>
+                <outlet property="labelInstructions1" destination="9cv-mc-z2U" id="bmX-CO-hWt"/>
+                <outlet property="labelInstructions2" destination="Xxh-oZ-zB9" id="z6s-vE-wRD"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view autoresizesSubviews="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="6xv-ED-tSE">
+                    <rect key="frame" x="95" y="256" width="130" height="55"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="camera_screen_button_cancel.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="click:" destination="-1" eventType="touchUpInside" id="lPg-kx-XCe"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cMy-yH-NkK">
+                    <rect key="frame" x="95" y="319" width="130" height="55"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="camera_screen_button_okay.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="click:" destination="-1" eventType="touchUpInside" id="fN1-FO-0IP"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9sK-Rj-i09">
+                    <rect key="frame" x="95" y="382" width="130" height="55"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <state key="normal" image="camera_screen_button_retry.png">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="click:" destination="-1" eventType="touchUpInside" id="4aK-bV-cvD"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hold Card Here" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="9cv-mc-z2U">
+                    <rect key="frame" x="57" y="69" width="206" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="26"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.34000000000000002" colorSpace="calibratedRGB"/>
+                    <size key="shadowOffset" width="-1" height="1"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" alpha="0.79999999999999982" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Center card in frame and light up all edges)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Xxh-oZ-zB9">
+                    <rect key="frame" x="57" y="107" width="206" height="35"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" name="Arial-BoldMT" family="Arial" pointSize="15"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="shadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
+                    <size key="shadowOffset" width="-1" height="1"/>
+                </label>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expand_arrow_1.png" id="TaS-Fr-7aq">
+                    <rect key="frame" x="124" y="176" width="32" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expand_arrow_2.png" id="CpM-zg-mvW">
+                    <rect key="frame" x="164" y="176" width="32" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expand_arrow_4.png" id="Hoa-bY-yOc">
+                    <rect key="frame" x="124" y="216" width="32" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="expand_arrow_3.png" id="lUH-h8-iZv">
+                    <rect key="frame" x="164" y="216" width="32" height="32"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </imageView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <nil key="simulatedStatusBarMetrics"/>
+            <nil key="simulatedTopBarMetrics"/>
+            <nil key="simulatedBottomBarMetrics"/>
+            <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="268" y="234"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="camera_screen_button_cancel.png" width="260" height="110"/>
+        <image name="camera_screen_button_okay.png" width="260" height="110"/>
+        <image name="camera_screen_button_retry.png" width="260" height="110"/>
+        <image name="expand_arrow_1.png" width="80" height="80"/>
+        <image name="expand_arrow_2.png" width="80" height="80"/>
+        <image name="expand_arrow_3.png" width="80" height="80"/>
+        <image name="expand_arrow_4.png" width="80" height="80"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>
