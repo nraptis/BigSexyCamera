@@ -231,6 +231,7 @@ class CameraScene: GraphicsDelegate {
         
         if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR, let videoTexture = videoTexture {
             
+            /*
             if let pipelineStateYCBCRToRGBA = graphics.pipeline.pipelineStateYCBCRToRGBA {
                 guard let cmdBuffer = graphics.engine.commandQueue.makeCommandBuffer() else { return }
                 guard let computeEncoder = cmdBuffer.makeComputeCommandEncoder() else { return }
@@ -247,8 +248,10 @@ class CameraScene: GraphicsDelegate {
                 computeEncoder.dispatchThreadgroups(threadgroupCount, threadsPerThreadgroup: threadgroupSize)
                 computeEncoder.endEncoding()
             }
+            */
             
             
+            /*
             pony3DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
                                                         height: graphics.height)
             
@@ -289,13 +292,13 @@ class CameraScene: GraphicsDelegate {
                                                 indexBufferOffset: 0,
                                                 instanceCount: 1)
             
-            
+            */
             
             
             videoUniformsVertex.projectionMatrix.ortho(width: graphics.width,
                                                         height: graphics.height)
             
-            modelView = matrix_identity_float4x4
+            var modelView = matrix_identity_float4x4
             modelView.translate(x: graphics.width * 0.5, y: graphics.height * 0.5, z: 0.0)
             videoUniformsVertex.modelViewMatrix = modelView
             
@@ -376,10 +379,6 @@ class CameraScene: GraphicsDelegate {
                                          instanceCount: 1)
             
         }
-        
-        
-        
-        
     }
     
     func touchBegan(touch: UITouch, x: Float, y: Float) {
@@ -453,7 +452,7 @@ extension CameraScene: AugmentedRealityCameraInputProviderReceiving {
         print("frame:")
         
         if videoTextureDidAttemptCreate == false {
-            videoTextureDidAttemptCreate = true
+            //videoTextureDidAttemptCreate = true
             
             let planeCount = CVPixelBufferGetPlaneCount(frame.capturedImage)
             

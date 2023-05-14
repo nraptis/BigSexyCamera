@@ -177,12 +177,12 @@ fragment float4 sprite_3d_ycbcr_fragment(SpriteColorInOut in [[stage_in]],
     
     
     half y = colorMapY.sample(colorSampler, in.textureCoord).r;
-    //half2 uv = colorMapCBCR.sample(colorSampler, in.textureCoord).rg;// - half2(0.5h, 0.5h);
+    half2 uv = colorMapCBCR.sample(colorSampler, in.textureCoord).rg;// - half2(0.5h, 0.5h);
     // Convert YUV to RGB inline.
     //half4 rgbaResult = half4(y + 1.402h * uv.y, y - 0.7141h * uv.y - 0.3441h * uv.x, y + 1.772h * uv.x, 1.0h);
     
     //half4 rgbaResult = half4(uv[0], uv[1], 1.0, 1.0h);
-    half4 rgbaResult = half4(y, y, 1.0h, 1.0h);
+    half4 rgbaResult = half4(y, y, uv[0], 1.0h);
     
     return float4(rgbaResult);
 }
