@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		EB08DC392A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */; };
+		EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */; };
 		EB691D122A103D7300975AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D112A103D7300975AC1 /* AppDelegate.swift */; };
 		EB691D142A103D7300975AC1 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D132A103D7300975AC1 /* SceneDelegate.swift */; };
 		EB691D1B2A103D7400975AC1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EB691D1A2A103D7400975AC1 /* Assets.xcassets */; };
@@ -15,7 +17,7 @@
 		EB691D332A103D7400975AC1 /* BigSexyCameraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D322A103D7400975AC1 /* BigSexyCameraUITests.swift */; };
 		EB691D352A103D7400975AC1 /* BigSexyCameraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D342A103D7400975AC1 /* BigSexyCameraUITestsLaunchTests.swift */; };
 		EB691D422A103E0700975AC1 /* CameraTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D412A103E0700975AC1 /* CameraTestViewController.swift */; };
-		EB691D442A103E2400975AC1 /* CameraReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D432A103E2400975AC1 /* CameraReader.swift */; };
+		EB691D442A103E2400975AC1 /* CameraReader_AV.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D432A103E2400975AC1 /* CameraReader_AV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +38,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityCameraInputProvider.swift; sourceTree = "<group>"; };
+		EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Size+Aspect.swift"; sourceTree = "<group>"; };
 		EB691D0E2A103D7300975AC1 /* BigSexyCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSexyCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EB691D112A103D7300975AC1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EB691D132A103D7300975AC1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,7 +52,7 @@
 		EB691D322A103D7400975AC1 /* BigSexyCameraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigSexyCameraUITests.swift; sourceTree = "<group>"; };
 		EB691D342A103D7400975AC1 /* BigSexyCameraUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigSexyCameraUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EB691D412A103E0700975AC1 /* CameraTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestViewController.swift; sourceTree = "<group>"; };
-		EB691D432A103E2400975AC1 /* CameraReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReader.swift; sourceTree = "<group>"; };
+		EB691D432A103E2400975AC1 /* CameraReader_AV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReader_AV.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,7 +109,9 @@
 				EB691D1C2A103D7400975AC1 /* LaunchScreen.storyboard */,
 				EB691D1F2A103D7400975AC1 /* Info.plist */,
 				EB691D412A103E0700975AC1 /* CameraTestViewController.swift */,
-				EB691D432A103E2400975AC1 /* CameraReader.swift */,
+				EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */,
+				EB691D432A103E2400975AC1 /* CameraReader_AV.swift */,
+				EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */,
 			);
 			path = BigSexyCamera;
 			sourceTree = "<group>";
@@ -257,7 +263,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EB691D442A103E2400975AC1 /* CameraReader.swift in Sources */,
+				EB691D442A103E2400975AC1 /* CameraReader_AV.swift in Sources */,
+				EB08DC392A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift in Sources */,
+				EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */,
 				EB691D422A103E0700975AC1 /* CameraTestViewController.swift in Sources */,
 				EB691D122A103D7300975AC1 /* AppDelegate.swift in Sources */,
 				EB691D142A103D7300975AC1 /* SceneDelegate.swift in Sources */,
@@ -429,6 +437,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2GG555KD5G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BigSexyCamera/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Streams live video to perform operations on video using metal.";
@@ -457,6 +466,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 2GG555KD5G;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = BigSexyCamera/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Streams live video to perform operations on video using metal.";

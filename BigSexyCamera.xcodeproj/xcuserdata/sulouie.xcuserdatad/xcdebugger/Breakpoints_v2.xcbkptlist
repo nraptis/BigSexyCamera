@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   uuid = "82B8A523-C181-4D7A-B96D-7AEB9AB0993F"
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "3D9B49EC-ED03-4AB1-8285-FD60093F9522"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSexyCamera/CameraReader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "captureOutput(_:didOutput:from:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "3D9B49EC-ED03-4AB1-8285-FD60093F9522 - fef6ed4a94a598f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BigSexyCamera.CameraReader.captureOutput(_: __C.AVCaptureOutput, didOutput: __C.CMSampleBufferRef, from: __C.AVCaptureConnection) -&gt; ()"
+                  moduleName = "BigSexyCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sulouie/Desktop/BigSexyCamera/BigSexyCamera/CameraReader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "172"
+                  endingLineNumber = "172"
+                  offsetFromSymbolStart = "152">
+               </Location>
+               <Location
+                  uuid = "3D9B49EC-ED03-4AB1-8285-FD60093F9522 - fef6ed4a94a598f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BigSexyCamera.CameraReader.captureOutput(_: __C.AVCaptureOutput, didOutput: __C.CMSampleBufferRef, from: __C.AVCaptureConnection) -&gt; ()"
+                  moduleName = "BigSexyCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sulouie/Desktop/BigSexyCamera/BigSexyCamera/CameraReader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "172"
+                  endingLineNumber = "172"
+                  offsetFromSymbolStart = "88">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FCA0290E-B5FA-404D-BE0F-F49689F38CFF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "BigSexyCamera/CameraReader.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "195"
+            endingLineNumber = "195"
+            landmarkName = "depthDataOutput(_:didOutput:timestamp:connection:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "FCA0290E-B5FA-404D-BE0F-F49689F38CFF - d353550b6ae1675f"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BigSexyCamera.CameraReader.depthDataOutput(_: __C.AVCaptureDepthDataOutput, didOutput: __C.AVDepthData, timestamp: __C.CMTime, connection: __C.AVCaptureConnection) -&gt; ()"
+                  moduleName = "BigSexyCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sulouie/Desktop/BigSexyCamera/BigSexyCamera/CameraReader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "195"
+                  endingLineNumber = "195"
+                  offsetFromSymbolStart = "264">
+               </Location>
+               <Location
+                  uuid = "FCA0290E-B5FA-404D-BE0F-F49689F38CFF - d353550b6ae16799"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "BigSexyCamera.CameraReader.depthDataOutput(_: __C.AVCaptureDepthDataOutput, didOutput: __C.AVDepthData, timestamp: __C.CMTime, connection: __C.AVCaptureConnection) -&gt; ()"
+                  moduleName = "BigSexyCamera"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/sulouie/Desktop/BigSexyCamera/BigSexyCamera/CameraReader.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "197"
+                  endingLineNumber = "197"
+                  offsetFromSymbolStart = "128">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

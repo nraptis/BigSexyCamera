@@ -8,12 +8,34 @@
 import UIKit
 
 class CameraTestViewController: UIViewController {
+    
+    lazy var imageView: UIImageView = {
+        let result = UIImageView(frame: CGRect.zero)
+        result.translatesAutoresizingMaskIntoConstraints = false
+        result.backgroundColor = UIColor.blue
+        return result
+    }()
 
-    lazy var cameraReader: CameraReader = {
-        let screenWidthI = Int(UIScreen.main.bounds.size.width + 0.5)
-        let screenHeightI = Int(UIScreen.main.bounds.size.height + 0.5)
-        return CameraReader(screenWidth: screenWidthI,
-                            screenHeight: screenHeightI)
+    lazy var screenWidth: CGFloat = {
+        UIScreen.main.bounds.size.width
+    }()
+    
+    lazy var screenWidthI: Int = {
+        Int(screenWidth + 0.5)
+    }()
+    
+    lazy var screenHeight: CGFloat = {
+        UIScreen.main.bounds.size.height
+    }()
+    
+    lazy var screenHeightI: Int = {
+        Int(screenHeight + 0.5)
+    }()
+    
+    lazy var cameraInputProvider: AugmentedRealityCameraInputProvider = {
+        let result = AugmentedRealityCameraInputProvider(screenWidth: screenWidthI,
+                                                         screenHeight: screenHeightI)
+        return result
     }()
     
     override func viewDidLoad() {
@@ -21,6 +43,25 @@ class CameraTestViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         view.backgroundColor = UIColor.orange
+        
+        
+        if let selfView = self.view {
+            selfView.addSubview(imageView)
+            imageView.addConstraints([
+                NSLayoutConstraint(item: imageView, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: screenWidth),
+                NSLayoutConstraint(item: imageView, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: screenHeight)
+            ])
+            selfView.addConstraints([
+                NSLayoutConstraint(item: imageView, attribute: .centerX, relatedBy: .equal, toItem: selfView, attribute: .centerX, multiplier: 1.0, constant: 0.0),
+                NSLayoutConstraint(item: imageView, attribute: .centerY, relatedBy: .equal, toItem: selfView, attribute: .centerY, multiplier: 1.0, constant: 0.0)
+            ])
+        }
+        
+        Task {
+            await cameraInputProvider.add(observer: self)
+            await cameraInputProvider.setupCaptureSession()
+            await cameraInputProvider.startCapturingCameraInput()
+        }
     }
     
 
@@ -35,3 +76,21 @@ class CameraTestViewController: UIViewController {
     */
 
 }
+
+extension CameraTestViewController: AugmentedRealityCameraInputProviderReceiving {
+    
+    func receive(image: UIImage) {
+        imageView.image = image
+    }
+}
+
+/*
+ extension CameraTestViewController: CameraReaderDelegate {
+ 
+ func receive(image: UIImage) {
+ imageView.image = image
+ }
+ 
+ 
+ }
+*/
