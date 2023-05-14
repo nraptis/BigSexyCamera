@@ -24,10 +24,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(windowScene: windowScene)
         guard let window = window else { return }
         
+        
+        /*
         let cameraTestViewController = CameraTestViewController(nibName: nil,
                                                                     bundle: nil)
         window.rootViewController = cameraTestViewController
         window.makeKeyAndVisible()
+        */
+        
+        
+        let scene = PongScene()
+        let graphics = Graphics(delegate: scene,
+                                width: Float(UIScreen.main.bounds.width),
+                                height: Float(UIScreen.main.bounds.height))
+        window.rootViewController = graphics.metalViewController
+        graphics.metalViewController.load()
+        window.makeKeyAndVisible()
+        
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

@@ -134,8 +134,8 @@ extension AugmentedRealityCameraInputProvider: ARSessionDelegate {
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         
         
-        //let pixelBuffer = frame.capturedImage
-        guard let pixelBuffer = frame.sceneDepth?.depthMap else { return }
+        let pixelBuffer = frame.capturedImage
+        //guard let pixelBuffer = frame.sceneDepth?.depthMap else { return }
                 
                 
         

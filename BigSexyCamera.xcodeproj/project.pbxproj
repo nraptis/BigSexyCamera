@@ -7,6 +7,34 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC02A1119D200265BB1 /* Matrix.swift */; };
+		0DB44CC32A1119D200265BB1 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC12A1119D200265BB1 /* Math.swift */; };
+		0DB44CC62A111A1100265BB1 /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC42A111A1100265BB1 /* Quaternion.swift */; };
+		0DB44CC72A111A1100265BB1 /* Sprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC52A111A1100265BB1 /* Sprite2D.swift */; };
+		0DB44CCD2A111AB800265BB1 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC92A111AB800265BB1 /* MetalView.swift */; };
+		0DB44CCE2A111AB800265BB1 /* MetalPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CCA2A111AB800265BB1 /* MetalPipeline.swift */; };
+		0DB44CCF2A111AB800265BB1 /* MetalEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CCB2A111AB800265BB1 /* MetalEngine.swift */; };
+		0DB44CD02A111AB800265BB1 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CCC2A111AB800265BB1 /* MetalViewController.swift */; };
+		0DB44CD22A111AEC00265BB1 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD12A111AEC00265BB1 /* Graphics.swift */; };
+		0DB44CE52A111B3600265BB1 /* Recycler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD42A111B3500265BB1 /* Recycler.swift */; };
+		0DB44CE62A111B3600265BB1 /* RecyclerSprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD52A111B3500265BB1 /* RecyclerSprite2D.swift */; };
+		0DB44CE72A111B3600265BB1 /* RecyclerShapeQuad3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD62A111B3500265BB1 /* RecyclerShapeQuad3D.swift */; };
+		0DB44CE82A111B3600265BB1 /* RecyclerShapeTriangle2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD72A111B3500265BB1 /* RecyclerShapeTriangle2D.swift */; };
+		0DB44CE92A111B3600265BB1 /* RecyclerShapeQuad2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD82A111B3500265BB1 /* RecyclerShapeQuad2D.swift */; };
+		0DB44CEA2A111B3600265BB1 /* RecyclerShapeTriangle3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD92A111B3500265BB1 /* RecyclerShapeTriangle3D.swift */; };
+		0DB44CEB2A111B3600265BB1 /* UniformsShapeNodeIndexed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CDB2A111B3500265BB1 /* UniformsShapeNodeIndexed.swift */; };
+		0DB44CEC2A111B3600265BB1 /* UniformsShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CDC2A111B3500265BB1 /* UniformsShape.swift */; };
+		0DB44CED2A111B3600265BB1 /* UniformsSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CDD2A111B3500265BB1 /* UniformsSprite.swift */; };
+		0DB44CEE2A111B3600265BB1 /* UniformsSpriteNodeIndexed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CDE2A111B3500265BB1 /* UniformsSpriteNodeIndexed.swift */; };
+		0DB44CEF2A111B3600265BB1 /* Uniforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CDF2A111B3500265BB1 /* Uniforms.swift */; };
+		0DB44CF02A111B3600265BB1 /* Shape.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CE12A111B3500265BB1 /* Shape.metal */; };
+		0DB44CF12A111B3600265BB1 /* ShapeNodeIndexed.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CE22A111B3500265BB1 /* ShapeNodeIndexed.metal */; };
+		0DB44CF22A111B3600265BB1 /* SpriteNodeIndexed.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CE32A111B3500265BB1 /* SpriteNodeIndexed.metal */; };
+		0DB44CF32A111B3600265BB1 /* Sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CE42A111B3500265BB1 /* Sprite.metal */; };
+		0DB44CF82A111C0F00265BB1 /* Paddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CF52A111C0F00265BB1 /* Paddle.swift */; };
+		0DB44CF92A111C0F00265BB1 /* PongScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CF62A111C0F00265BB1 /* PongScene.swift */; };
+		0DB44CFA2A111C0F00265BB1 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CF72A111C0F00265BB1 /* Ball.swift */; };
+		0DB44CFC2A111F8100265BB1 /* icon_pony.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB44CFB2A111F8100265BB1 /* icon_pony.png */; };
 		EB08DC392A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */; };
 		EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */; };
 		EB691D122A103D7300975AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D112A103D7300975AC1 /* AppDelegate.swift */; };
@@ -38,6 +66,34 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0DB44CC02A1119D200265BB1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
+		0DB44CC12A1119D200265BB1 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
+		0DB44CC42A111A1100265BB1 /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Quaternion.swift; path = ../../PongCLPA/PongCLPA/Quaternion.swift; sourceTree = "<group>"; };
+		0DB44CC52A111A1100265BB1 /* Sprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sprite2D.swift; path = ../../PongCLPA/PongCLPA/Sprite2D.swift; sourceTree = "<group>"; };
+		0DB44CC92A111AB800265BB1 /* MetalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
+		0DB44CCA2A111AB800265BB1 /* MetalPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalPipeline.swift; sourceTree = "<group>"; };
+		0DB44CCB2A111AB800265BB1 /* MetalEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalEngine.swift; sourceTree = "<group>"; };
+		0DB44CCC2A111AB800265BB1 /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
+		0DB44CD12A111AEC00265BB1 /* Graphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
+		0DB44CD42A111B3500265BB1 /* Recycler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recycler.swift; sourceTree = "<group>"; };
+		0DB44CD52A111B3500265BB1 /* RecyclerSprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerSprite2D.swift; sourceTree = "<group>"; };
+		0DB44CD62A111B3500265BB1 /* RecyclerShapeQuad3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerShapeQuad3D.swift; sourceTree = "<group>"; };
+		0DB44CD72A111B3500265BB1 /* RecyclerShapeTriangle2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerShapeTriangle2D.swift; sourceTree = "<group>"; };
+		0DB44CD82A111B3500265BB1 /* RecyclerShapeQuad2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerShapeQuad2D.swift; sourceTree = "<group>"; };
+		0DB44CD92A111B3500265BB1 /* RecyclerShapeTriangle3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerShapeTriangle3D.swift; sourceTree = "<group>"; };
+		0DB44CDB2A111B3500265BB1 /* UniformsShapeNodeIndexed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformsShapeNodeIndexed.swift; sourceTree = "<group>"; };
+		0DB44CDC2A111B3500265BB1 /* UniformsShape.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformsShape.swift; sourceTree = "<group>"; };
+		0DB44CDD2A111B3500265BB1 /* UniformsSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformsSprite.swift; sourceTree = "<group>"; };
+		0DB44CDE2A111B3500265BB1 /* UniformsSpriteNodeIndexed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UniformsSpriteNodeIndexed.swift; sourceTree = "<group>"; };
+		0DB44CDF2A111B3500265BB1 /* Uniforms.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uniforms.swift; sourceTree = "<group>"; };
+		0DB44CE12A111B3500265BB1 /* Shape.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Shape.metal; sourceTree = "<group>"; };
+		0DB44CE22A111B3500265BB1 /* ShapeNodeIndexed.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ShapeNodeIndexed.metal; sourceTree = "<group>"; };
+		0DB44CE32A111B3500265BB1 /* SpriteNodeIndexed.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SpriteNodeIndexed.metal; sourceTree = "<group>"; };
+		0DB44CE42A111B3500265BB1 /* Sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Sprite.metal; sourceTree = "<group>"; };
+		0DB44CF52A111C0F00265BB1 /* Paddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paddle.swift; sourceTree = "<group>"; };
+		0DB44CF62A111C0F00265BB1 /* PongScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PongScene.swift; sourceTree = "<group>"; };
+		0DB44CF72A111C0F00265BB1 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
+		0DB44CFB2A111F8100265BB1 /* icon_pony.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_pony.png; sourceTree = "<group>"; };
 		EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityCameraInputProvider.swift; sourceTree = "<group>"; };
 		EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Size+Aspect.swift"; sourceTree = "<group>"; };
 		EB691D0E2A103D7300975AC1 /* BigSexyCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSexyCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -80,6 +136,67 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0DB44CC82A111AB800265BB1 /* Metal */ = {
+			isa = PBXGroup;
+			children = (
+				0DB44CD32A111B3500265BB1 /* Recyclers */,
+				0DB44CE02A111B3500265BB1 /* Shaders */,
+				0DB44CDA2A111B3500265BB1 /* Uniforms */,
+				0DB44CD12A111AEC00265BB1 /* Graphics.swift */,
+				0DB44CC92A111AB800265BB1 /* MetalView.swift */,
+				0DB44CCA2A111AB800265BB1 /* MetalPipeline.swift */,
+				0DB44CCB2A111AB800265BB1 /* MetalEngine.swift */,
+				0DB44CCC2A111AB800265BB1 /* MetalViewController.swift */,
+			);
+			path = Metal;
+			sourceTree = "<group>";
+		};
+		0DB44CD32A111B3500265BB1 /* Recyclers */ = {
+			isa = PBXGroup;
+			children = (
+				0DB44CD42A111B3500265BB1 /* Recycler.swift */,
+				0DB44CD52A111B3500265BB1 /* RecyclerSprite2D.swift */,
+				0DB44CD62A111B3500265BB1 /* RecyclerShapeQuad3D.swift */,
+				0DB44CD72A111B3500265BB1 /* RecyclerShapeTriangle2D.swift */,
+				0DB44CD82A111B3500265BB1 /* RecyclerShapeQuad2D.swift */,
+				0DB44CD92A111B3500265BB1 /* RecyclerShapeTriangle3D.swift */,
+			);
+			path = Recyclers;
+			sourceTree = "<group>";
+		};
+		0DB44CDA2A111B3500265BB1 /* Uniforms */ = {
+			isa = PBXGroup;
+			children = (
+				0DB44CDB2A111B3500265BB1 /* UniformsShapeNodeIndexed.swift */,
+				0DB44CDC2A111B3500265BB1 /* UniformsShape.swift */,
+				0DB44CDD2A111B3500265BB1 /* UniformsSprite.swift */,
+				0DB44CDE2A111B3500265BB1 /* UniformsSpriteNodeIndexed.swift */,
+				0DB44CDF2A111B3500265BB1 /* Uniforms.swift */,
+			);
+			path = Uniforms;
+			sourceTree = "<group>";
+		};
+		0DB44CE02A111B3500265BB1 /* Shaders */ = {
+			isa = PBXGroup;
+			children = (
+				0DB44CE12A111B3500265BB1 /* Shape.metal */,
+				0DB44CE22A111B3500265BB1 /* ShapeNodeIndexed.metal */,
+				0DB44CE32A111B3500265BB1 /* SpriteNodeIndexed.metal */,
+				0DB44CE42A111B3500265BB1 /* Sprite.metal */,
+			);
+			path = Shaders;
+			sourceTree = "<group>";
+		};
+		0DB44CF42A111C0F00265BB1 /* Pong */ = {
+			isa = PBXGroup;
+			children = (
+				0DB44CF52A111C0F00265BB1 /* Paddle.swift */,
+				0DB44CF62A111C0F00265BB1 /* PongScene.swift */,
+				0DB44CF72A111C0F00265BB1 /* Ball.swift */,
+			);
+			path = Pong;
+			sourceTree = "<group>";
+		};
 		EB691D052A103D7300975AC1 = {
 			isa = PBXGroup;
 			children = (
@@ -103,8 +220,11 @@
 		EB691D102A103D7300975AC1 /* BigSexyCamera */ = {
 			isa = PBXGroup;
 			children = (
+				0DB44CFB2A111F8100265BB1 /* icon_pony.png */,
+				0DB44CC82A111AB800265BB1 /* Metal */,
 				EB691D112A103D7300975AC1 /* AppDelegate.swift */,
 				EB691D132A103D7300975AC1 /* SceneDelegate.swift */,
+				0DB44CF42A111C0F00265BB1 /* Pong */,
 				EB691D1A2A103D7400975AC1 /* Assets.xcassets */,
 				EB691D1C2A103D7400975AC1 /* LaunchScreen.storyboard */,
 				EB691D1F2A103D7400975AC1 /* Info.plist */,
@@ -112,6 +232,10 @@
 				EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */,
 				EB691D432A103E2400975AC1 /* CameraReader_AV.swift */,
 				EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */,
+				0DB44CC12A1119D200265BB1 /* Math.swift */,
+				0DB44CC02A1119D200265BB1 /* Matrix.swift */,
+				0DB44CC42A111A1100265BB1 /* Quaternion.swift */,
+				0DB44CC52A111A1100265BB1 /* Sprite2D.swift */,
 			);
 			path = BigSexyCamera;
 			sourceTree = "<group>";
@@ -239,6 +363,7 @@
 			files = (
 				EB691D1E2A103D7400975AC1 /* LaunchScreen.storyboard in Resources */,
 				EB691D1B2A103D7400975AC1 /* Assets.xcassets in Resources */,
+				0DB44CFC2A111F8100265BB1 /* icon_pony.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -263,12 +388,39 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0DB44CFA2A111C0F00265BB1 /* Ball.swift in Sources */,
+				0DB44CF22A111B3600265BB1 /* SpriteNodeIndexed.metal in Sources */,
+				0DB44CC62A111A1100265BB1 /* Quaternion.swift in Sources */,
+				0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */,
+				0DB44CEF2A111B3600265BB1 /* Uniforms.swift in Sources */,
+				0DB44CF12A111B3600265BB1 /* ShapeNodeIndexed.metal in Sources */,
+				0DB44CE62A111B3600265BB1 /* RecyclerSprite2D.swift in Sources */,
+				0DB44CE92A111B3600265BB1 /* RecyclerShapeQuad2D.swift in Sources */,
+				0DB44CE52A111B3600265BB1 /* Recycler.swift in Sources */,
+				0DB44CE82A111B3600265BB1 /* RecyclerShapeTriangle2D.swift in Sources */,
 				EB691D442A103E2400975AC1 /* CameraReader_AV.swift in Sources */,
+				0DB44CCF2A111AB800265BB1 /* MetalEngine.swift in Sources */,
+				0DB44CCE2A111AB800265BB1 /* MetalPipeline.swift in Sources */,
+				0DB44CF92A111C0F00265BB1 /* PongScene.swift in Sources */,
 				EB08DC392A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift in Sources */,
+				0DB44CEC2A111B3600265BB1 /* UniformsShape.swift in Sources */,
+				0DB44CF32A111B3600265BB1 /* Sprite.metal in Sources */,
+				0DB44CD22A111AEC00265BB1 /* Graphics.swift in Sources */,
 				EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */,
+				0DB44CEB2A111B3600265BB1 /* UniformsShapeNodeIndexed.swift in Sources */,
 				EB691D422A103E0700975AC1 /* CameraTestViewController.swift in Sources */,
+				0DB44CF02A111B3600265BB1 /* Shape.metal in Sources */,
+				0DB44CCD2A111AB800265BB1 /* MetalView.swift in Sources */,
+				0DB44CF82A111C0F00265BB1 /* Paddle.swift in Sources */,
+				0DB44CE72A111B3600265BB1 /* RecyclerShapeQuad3D.swift in Sources */,
+				0DB44CED2A111B3600265BB1 /* UniformsSprite.swift in Sources */,
+				0DB44CC72A111A1100265BB1 /* Sprite2D.swift in Sources */,
 				EB691D122A103D7300975AC1 /* AppDelegate.swift in Sources */,
 				EB691D142A103D7300975AC1 /* SceneDelegate.swift in Sources */,
+				0DB44CD02A111AB800265BB1 /* MetalViewController.swift in Sources */,
+				0DB44CEA2A111B3600265BB1 /* RecyclerShapeTriangle3D.swift in Sources */,
+				0DB44CC32A1119D200265BB1 /* Math.swift in Sources */,
+				0DB44CEE2A111B3600265BB1 /* UniformsSpriteNodeIndexed.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -366,7 +518,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -420,7 +572,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -445,7 +597,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -474,7 +626,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

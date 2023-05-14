@@ -57,11 +57,10 @@ class CameraTestViewController: UIViewController {
             ])
         }
         
-        Task {
-            await cameraInputProvider.add(observer: self)
-            await cameraInputProvider.setupCaptureSession()
-            await cameraInputProvider.startCapturingCameraInput()
-        }
+        cameraInputProvider.add(observer: self)
+        cameraInputProvider.setupCaptureSession()
+        cameraInputProvider.startCapturingCameraInput()
+        
     }
     
 
