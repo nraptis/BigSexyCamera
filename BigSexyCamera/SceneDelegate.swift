@@ -32,8 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window.makeKeyAndVisible()
         */
         
-        
-        let scene = PongScene()
+        let scene = CameraScene()
         let graphics = Graphics(delegate: scene,
                                 width: Float(UIScreen.main.bounds.width),
                                 height: Float(UIScreen.main.bounds.height))

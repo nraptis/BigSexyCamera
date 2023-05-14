@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ARKit
 
 class CameraTestViewController: UIViewController {
     
@@ -77,6 +78,10 @@ class CameraTestViewController: UIViewController {
 }
 
 extension CameraTestViewController: AugmentedRealityCameraInputProviderReceiving {
+    func provider(didReceive frame: ARFrame) {
+        
+    }
+    
     
     func receive(image: UIImage) {
         imageView.image = image

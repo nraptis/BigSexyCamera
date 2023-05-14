@@ -11,6 +11,7 @@ import CoreGraphics
 
 protocol AugmentedRealityCameraInputProviderReceiving: AnyObject {
     func receive(image: UIImage)
+    func provider(didReceive frame: ARFrame)
 }
 
 class AugmentedRealityCameraInputProvider: NSObject {
@@ -89,7 +90,6 @@ class AugmentedRealityCameraInputProvider: NSObject {
         
     }
     
-    
     private final class WeakObserver {
         weak var observer: (any AugmentedRealityCameraInputProviderReceiving)?
         init(observer: any AugmentedRealityCameraInputProviderReceiving) {
@@ -133,6 +133,12 @@ extension AugmentedRealityCameraInputProvider: ARSessionDelegate {
     
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
         
+        
+        for observer in observers {
+            if let observer = observer.observer {
+                observer.provider(didReceive: frame)
+            }
+        }
         
         let pixelBuffer = frame.capturedImage
         //guard let pixelBuffer = frame.sceneDepth?.depthMap else { return }

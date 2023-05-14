@@ -270,37 +270,11 @@ class PongScene: GraphicsDelegate {
                                                 indexBuffer: pony3DIndexBuffer,
                                                 indexBufferOffset: 0,
                                                 instanceCount: 1)
-            
         }
         
     }
     
     func draw2D(renderEncoder: MTLRenderCommandEncoder) {
-        
-        /*
-        let positions: [Float] = [20.0, 20.0,
-                                  graphics.width - 20.0, 20.0,
-                                  20.0, graphics.height - 20.0,
-                                  graphics.width - 20.0, graphics.height - 20.0]
-        
-        let positionsBuffer = graphics.buffer(array: positions)
-        
-        var uniformsVertex = UniformsShapeVertex()
-        uniformsVertex.projectionMatrix.ortho(width: graphics.width, height: graphics.height)
-        let uniformsVertexBuffer = graphics.buffer(uniform: uniformsVertex)
-        
-        var uniformsFragment = UniformsShapeFragment()
-        uniformsFragment.set(red: 1.0, green: 0.5, blue: 0.0)
-        let uniformsFragmentBuffer = graphics.buffer(uniform: uniformsFragment)
-        
-        graphics.set(pipelineState: .shape2DNoBlending, renderEncoder: renderEncoder)
-        
-        graphics.setVertexPositionsBuffer(positionsBuffer, renderEncoder: renderEncoder)
-        graphics.setVertexUniformsBuffer(uniformsVertexBuffer, renderEncoder: renderEncoder)
-        graphics.setFragmentUniformsBuffer(uniformsFragmentBuffer, renderEncoder: renderEncoder)
-        
-        renderEncoder.drawPrimitives(type: .triangleStrip, vertexStart: 0, vertexCount: 4)
-        */
         
         paddleEnemy.draw(renderEncoder: renderEncoder)
         paddleSelf.draw(renderEncoder: renderEncoder)
