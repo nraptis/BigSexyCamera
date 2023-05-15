@@ -90,6 +90,19 @@ fragment float4 sprite_node_indexed_2d_fragment(SpriteNodeIndexedColorInOut in [
     return result;
 }
 
+fragment float4 sprite_node_indexed_2d_ycbcr_fragment(SpriteNodeIndexedColorInOut in [[stage_in]],
+                                                      constant SpriteNodeIndexedFragmentUniforms & uniforms [[buffer(SpriteNodeIndexedYCBCRFragmentIndexUniforms)]],
+                                                      texture2d<half> colorMapY [[ texture(SpriteNodeIndexedYCBCRFragmentIndexTextureY) ]],
+                                                      texture2d<half> colorMapCBCR [[ texture(SpriteNodeIndexedYCBCRFragmentIndexTextureCBCR) ]],
+                                                      sampler colorSampler [[ sampler(SpriteNodeIndexedYCBCRFragmentIndexSampler) ]]) {
+half y = colorMapY.sample(colorSampler, in.textureCoord).r;
+half2 cbcr = colorMapCBCR.sample(colorSampler, in.textureCoord).rg - half2(0.5h, 0.5h);
+half4 rgbaResult = half4(y + 1.402h * cbcr.y, y - 0.7141h * cbcr.y - 0.3441h * cbcr.x, y + 1.772h * cbcr.x, 1.0h);
+return float4(rgbaResult.r * uniforms.r,
+        rgbaResult.g * uniforms.g,
+        rgbaResult.b * uniforms.b,
+        rgbaResult.a * uniforms.a);
+}
 
 vertex SpriteNodeColoredIndexedColorInOut sprite_node_colored_indexed_2d_vertex(constant SpriteNodeColoredIndexedVertex2D *verts [[buffer(SpriteNodeIndexedVertexIndexData)]],
                                                                    ushort vid [[vertex_id]],
@@ -116,22 +129,19 @@ fragment float4 sprite_node_colored_indexed_2d_fragment(SpriteNodeColoredIndexed
 
 fragment float4 sprite_node_colored_indexed_2d_ycbcr_fragment(SpriteNodeColoredIndexedColorInOut in [[stage_in]],
                                                               constant SpriteNodeIndexedFragmentUniforms & uniforms [[buffer(SpriteNodeIndexedYCBCRFragmentIndexUniforms)]],
-                                                                            texture2d<half> colorMapY [[ texture(SpriteNodeIndexedYCBCRFragmentIndexTextureY) ]],
-                                                                            texture2d<half> colorMapCBCR [[ texture(SpriteNodeIndexedYCBCRFragmentIndexTextureCBCR) ]],
-                                                                            sampler colorSampler [[ sampler(SpriteNodeIndexedYCBCRFragmentIndexSampler) ]]) {
-    half y = colorMapY.sample(colorSampler, in.textureCoord).r;
-    half2 cbcr = colorMapCBCR.sample(colorSampler, in.textureCoord).rg - half2(0.5h, 0.5h);
-    half4 rgbaResult = half4(y + 1.402h * cbcr.y, y - 0.7141h * cbcr.y - 0.3441h * cbcr.x, y + 1.772h * cbcr.x, 1.0h);
-    /*return float4(rgbaResult.r * uniforms.r * in.color[0],
-                  rgbaResult.g * uniforms.g * in.color[1],
-                  rgbaResult.b * uniforms.b * in.color[2],
-                  rgbaResult.a * uniforms.a * in.color[3]);
-    */
-    return float4(rgbaResult.r * uniforms.r,
-                  rgbaResult.g * uniforms.g,
-                  rgbaResult.b * uniforms.b,
-                  rgbaResult.a * uniforms.a);
+                                                              texture2d<half> colorMapY [[ texture(SpriteNodeIndexedYCBCRFragmentIndexTextureY) ]],
+                                                              texture2d<half> colorMapCBCR [[ texture(SpriteNodeIndexedYCBCRFragmentIndexTextureCBCR) ]],
+                                                              sampler colorSampler [[ sampler(SpriteNodeIndexedYCBCRFragmentIndexSampler) ]]) {
+  half y = colorMapY.sample(colorSampler, in.textureCoord).r;
+  half2 cbcr = colorMapCBCR.sample(colorSampler, in.textureCoord).rg - half2(0.5h, 0.5h);
+  half4 rgbaResult = half4(y + 1.402h * cbcr.y, y - 0.7141h * cbcr.y - 0.3441h * cbcr.x, y + 1.772h * cbcr.x, 1.0h);
+  return float4(rgbaResult.r * uniforms.r * in.color[0],
+                rgbaResult.g * uniforms.g * in.color[1],
+                rgbaResult.b * uniforms.b * in.color[2],
+                rgbaResult.a * uniforms.a * in.color[3]);
 }
+
+
 
 vertex SpriteNodeIndexedColorInOut sprite_node_indexed_3d_vertex(constant SpriteNodeIndexedVertex3D *verts [[buffer(SpriteNodeIndexedVertexIndexData)]],
                                                                    ushort vid [[vertex_id]],

@@ -50,6 +50,14 @@ class CameraScene: GraphicsDelegate {
         let v: Float
     }
     
+    struct Sprite2DNode {
+        let x: Float
+        let y: Float
+        
+        let u: Float
+        let v: Float
+    }
+    
     
     lazy var cameraInputProvider: AugmentedRealityCameraInputProvider = {
         let result = AugmentedRealityCameraInputProvider(screenWidth: Int(graphics.width + 0.5),
@@ -105,29 +113,40 @@ class CameraScene: GraphicsDelegate {
     var videoNodeColored3DUniformsFragment = UniformsSpriteNodeIndexedFragment()
     var videoNodeColored3DUniformsFragmentBuffer: MTLBuffer!
     var videoNodeColored3DData: [SpriteColored3DNode] = [
-        SpriteColored3DNode(x: -64.0, y: -64.0, z: 0.0, u: 0.0, v: 0.0, r: 1.0, g: 0.0, b: 0.0, a: 1.0),
-        SpriteColored3DNode(x: 64.0, y: -64.0, z: 0.0, u: 1.0, v: 0.0, r: 1.0, g: 0.0, b: 0.0, a: 0.25),
-        SpriteColored3DNode(x: -64.0, y: 64.0, z: 0.0, u: 0.0, v: 1.0, r: 1.0, g: 0.0, b: 1.0, a: 1.0),
-        SpriteColored3DNode(x: 64.0, y: 64.0, z: 0.0, u: 1.0, v: 1.0, r: 0.0, g: 1.0, b: 1.0, a: 1.0)]
+        SpriteColored3DNode(x: -64.0, y: -64.0, z: 0.0, u: 0.0, v: 0.0, r: 0.5, g: 1.0, b: 0.25, a: 0.5),
+        SpriteColored3DNode(x: 64.0, y: -64.0, z: 0.0, u: 1.0, v: 0.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0),
+        SpriteColored3DNode(x: -64.0, y: 64.0, z: 0.0, u: 0.0, v: 1.0, r: 1.0, g: 0.75, b: 1.0, a: 0.75),
+        SpriteColored3DNode(x: 64.0, y: 64.0, z: 0.0, u: 1.0, v: 1.0, r: 0.0, g: 1.0, b: 1.0, a: 0.25)]
     var videoNodeColored3DDataBuffer: MTLBuffer!
     var videoNodeColored3DIndices: [UInt16] = [0, 1, 2, 3]
     var videoNodeColored3DIndexBuffer: MTLBuffer!
-    
-    
     
     var videoNodeColored2DUniformsVertex = UniformsSpriteNodeIndexedVertex()
     var videoNodeColored2DUniformsVertexBuffer: MTLBuffer!
     var videoNodeColored2DUniformsFragment = UniformsSpriteNodeIndexedFragment()
     var videoNodeColored2DUniformsFragmentBuffer: MTLBuffer!
     var videoNodeColored2DData: [SpriteColored2DNode] = [
-        SpriteColored2DNode(x: -128.0, y: -128.0, u: 0.0, v: 0.0, r: 1.0, g: 1.0, b: 0.0, a: 1.0),
+        SpriteColored2DNode(x: -128.0, y: -128.0, u: 0.0, v: 0.0, r: 0.0, g: 1.0, b: 0.0, a: 0.5),
         SpriteColored2DNode(x: 128.0, y: -128.0, u: 1.0, v: 0.0, r: 0.0, g: 1.0, b: 1.0, a: 1.0),
-        SpriteColored2DNode(x: -128.0, y: 128.0, u: 0.0, v: 1.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0),
-        SpriteColored2DNode(x: 128, y: 128.0, u: 1.0, v: 1.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0)]
+        SpriteColored2DNode(x: -128.0, y: 128.0, u: 0.0, v: 1.0, r: 0.0, g: 0.0, b: 1.0, a: 0.25),
+        SpriteColored2DNode(x: 128, y: 128.0, u: 1.0, v: 1.0, r: 1.0, g: 0.0, b: 0.25, a: 1.0)]
     var videoNodeColored2DDataBuffer: MTLBuffer!
     var videoNodeColored2DIndices: [UInt16] = [0, 1, 2, 3]
     var videoNodeColored2DIndexBuffer: MTLBuffer!
     
+    
+    var videoNode2DUniformsVertex = UniformsSpriteNodeIndexedVertex()
+    var videoNode2DUniformsVertexBuffer: MTLBuffer!
+    var videoNode2DUniformsFragment = UniformsSpriteNodeIndexedFragment()
+    var videoNode2DUniformsFragmentBuffer: MTLBuffer!
+    var videoNode2DData: [Sprite2DNode] = [
+        Sprite2DNode(x: -128.0, y: -128.0, u: 0.0, v: 0.0),
+        Sprite2DNode(x: 128.0, y: -128.0, u: 1.0, v: 0.0),
+        Sprite2DNode(x: -128.0, y: 128.0, u: 0.0, v: 1.0),
+        Sprite2DNode(x: 128, y: 128.0, u: 1.0, v: 1.0)]
+    var videoNode2DDataBuffer: MTLBuffer!
+    var videoNode2DIndices: [UInt16] = [0, 1, 2, 3]
+    var videoNode2DIndexBuffer: MTLBuffer!
     
     
     
@@ -248,6 +267,13 @@ class CameraScene: GraphicsDelegate {
             videoNodeColored3DIndexBuffer = graphics.buffer(array: videoNodeColored3DIndices)
         }
         
+        if true {
+            videoNode2DUniformsVertexBuffer = graphics.buffer(uniform: videoNode2DUniformsVertex)
+            videoNode2DUniformsFragmentBuffer = graphics.buffer(uniform: videoNode2DUniformsFragment)
+            
+            videoNode2DDataBuffer = graphics.buffer(array: videoNode2DData)
+            videoNode2DIndexBuffer = graphics.buffer(array: videoNode2DIndices)
+        }
         
         if true {
             videoNode3DUniformsVertexBuffer = graphics.buffer(uniform: videoNode3DUniformsVertex)
@@ -502,9 +528,7 @@ class CameraScene: GraphicsDelegate {
             pony2DUniformsVertex.modelViewMatrix = modelView
             
             graphics.write(buffer: pony2DUniformsVertexBuffer, uniform: pony2DUniformsVertex)
-            
-            pony2DUniformsFragment.green = Float.random(in: 0.5...1.0)
-            pony2DUniformsFragment.alpha = 0.5
+
             graphics.write(buffer: pony2DUniformsFragmentBuffer, uniform: pony2DUniformsFragment)
             
             graphics.set(pipelineState: .sprite2DAlphaBlending,
@@ -618,6 +642,54 @@ class CameraScene: GraphicsDelegate {
                                                 indexCount: videoNodeColored2DIndices.count,
                                                 indexType: .uint16,
                                                 indexBuffer: videoNodeColored2DIndexBuffer,
+                                                indexBufferOffset: 0,
+                                                instanceCount: 1)
+            
+            
+        }
+        
+    
+        
+        if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR {
+            
+            videoNode2DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
+                                                        height: graphics.height)
+            
+            var modelView = matrix_identity_float4x4
+            modelView.translate(x: graphics.width * 0.25, y: graphics.height * 0.25, z: 0.0)
+            videoNode2DUniformsVertex.modelViewMatrix = modelView
+            
+            videoNode2DUniformsFragment.red = 1.0
+            videoNode2DUniformsFragment.green = 0.0
+            videoNode2DUniformsFragment.blue = 1.0
+            videoNode2DUniformsFragment.alpha = 1.0
+            
+            
+            graphics.write(buffer: videoNode2DUniformsVertexBuffer, uniform: videoNode2DUniformsVertex)
+            graphics.write(buffer: videoNode2DUniformsFragmentBuffer, uniform: videoNode2DUniformsFragment)
+            
+            graphics.set(pipelineState: .spriteNodeIndexed2DYCBCRAlphaBlending,
+                         renderEncoder: renderEncoder)
+            
+            graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
+            
+            graphics.setVertexDataBuffer(videoNode2DDataBuffer,
+                                              renderEncoder: renderEncoder)
+            
+            graphics.setFragmentTextureY(videoTextureY,
+                                         renderEncoder: renderEncoder)
+            graphics.setFragmentTextureCBCR(videoTextureCBCR,
+                                            renderEncoder: renderEncoder)
+            
+            graphics.setVertexUniformsBuffer(videoNode2DUniformsVertexBuffer,
+                                             renderEncoder: renderEncoder)
+            graphics.setFragmentUniformsBuffer(videoNode2DUniformsFragmentBuffer,
+                                               renderEncoder: renderEncoder)
+            
+            renderEncoder.drawIndexedPrimitives(type: .triangleStrip,
+                                                indexCount: videoNode2DIndices.count,
+                                                indexType: .uint16,
+                                                indexBuffer: videoNode2DIndexBuffer,
                                                 indexBufferOffset: 0,
                                                 instanceCount: 1)
             

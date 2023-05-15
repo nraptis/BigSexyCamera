@@ -85,6 +85,14 @@ class Graphics {
         case spriteNodeIndexed2DAlphaBlending
         case spriteNodeIndexed2DAdditiveBlending
         case spriteNodeIndexed2DPremultipliedBlending
+        
+        
+        case spriteNodeIndexed2DYCBCRNoBlending
+        case spriteNodeIndexed2DYCBCRAlphaBlending
+        case spriteNodeIndexed2DYCBCRAdditiveBlending
+        case spriteNodeIndexed2DYCBCRPremultipliedBlending
+        
+        
         case spriteNodeIndexed3DNoBlending
         case spriteNodeIndexed3DAlphaBlending
         case spriteNodeIndexed3DAdditiveBlending
@@ -357,6 +365,16 @@ class Graphics {
             renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeIndexed2DAdditiveBlending)
         case .spriteNodeIndexed2DPremultipliedBlending:
             renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeIndexed2DPremultipliedBlending)
+            
+        case .spriteNodeIndexed2DYCBCRNoBlending:
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeIndexed2DYCBCRNoBlending)
+        case .spriteNodeIndexed2DYCBCRAlphaBlending:
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeIndexed2DYCBCRAlphaBlending)
+        case .spriteNodeIndexed2DYCBCRAdditiveBlending:
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeIndexed2DYCBCRAdditiveBlending)
+        case .spriteNodeIndexed2DYCBCRPremultipliedBlending:
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeIndexed2DYCBCRPremultipliedBlending)
+            
         case .spriteNodeIndexed3DNoBlending:
             renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeIndexed3DNoBlending)
         case .spriteNodeIndexed3DAlphaBlending:
@@ -385,13 +403,13 @@ class Graphics {
             renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DPremultipliedBlending)
             
         case .spriteNodeColoredIndexed2DYCBCRNoBlending:
-            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DNoBlending)
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DYCBCRNoBlending)
         case .spriteNodeColoredIndexed2DYCBCRAlphaBlending:
-            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DAlphaBlending)
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DYCBCRAlphaBlending)
         case .spriteNodeColoredIndexed2DYCBCRAdditiveBlending:
-            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DAdditiveBlending)
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DYCBCRAdditiveBlending)
         case .spriteNodeColoredIndexed2DYCBCRPremultipliedBlending:
-            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DPremultipliedBlending)
+            renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed2DYCBCRPremultipliedBlending)
             
         case .spriteNodeColoredIndexed3DNoBlending:
             renderEncoder.setRenderPipelineState(pipeline.pipelineStateSpriteNodeColoredIndexed3DNoBlending)
@@ -479,7 +497,12 @@ class Graphics {
                 .spriteNodeColoredIndexed3DPremultipliedBlending:
             renderEncoder.setFragmentSamplerState(metalSamplerState, index: MetalPipeline.spriteNodeIndexedFragmentIndexSampler)
             
-        case .spriteNodeIndexed3DYCBCRNoBlending,
+        case .spriteNodeIndexed2DYCBCRNoBlending,
+                .spriteNodeIndexed2DYCBCRAlphaBlending,
+                .spriteNodeIndexed2DYCBCRAdditiveBlending,
+                .spriteNodeIndexed2DYCBCRPremultipliedBlending,
+            
+                .spriteNodeIndexed3DYCBCRNoBlending,
                 .spriteNodeIndexed3DYCBCRAlphaBlending,
                 .spriteNodeIndexed3DYCBCRAdditiveBlending,
                 .spriteNodeIndexed3DYCBCRPremultipliedBlending,
@@ -521,10 +544,6 @@ class Graphics {
                     .shapeNodeColoredIndexed2DAlphaBlending,
                     .shapeNodeColoredIndexed2DAdditiveBlending,
                     .shapeNodeColoredIndexed2DPremultipliedBlending,
-                    .spriteNodeColoredIndexed2DYCBCRNoBlending,
-                    .spriteNodeColoredIndexed2DYCBCRAlphaBlending,
-                    .spriteNodeColoredIndexed2DYCBCRAdditiveBlending,
-                    .spriteNodeColoredIndexed2DYCBCRPremultipliedBlending,
                     .shapeNodeIndexed3DNoBlending,
                     .shapeNodeIndexed3DAlphaBlending,
                     .shapeNodeIndexed3DAdditiveBlending,
@@ -561,10 +580,18 @@ class Graphics {
                     .spriteNodeIndexed2DAlphaBlending,
                     .spriteNodeIndexed2DAdditiveBlending,
                     .spriteNodeIndexed2DPremultipliedBlending,
+                    .spriteNodeIndexed2DYCBCRNoBlending,
+                    .spriteNodeIndexed2DYCBCRAlphaBlending,
+                    .spriteNodeIndexed2DYCBCRAdditiveBlending,
+                    .spriteNodeIndexed2DYCBCRPremultipliedBlending,
                     .spriteNodeColoredIndexed2DNoBlending,
                     .spriteNodeColoredIndexed2DAlphaBlending,
                     .spriteNodeColoredIndexed2DAdditiveBlending,
                     .spriteNodeColoredIndexed2DPremultipliedBlending,
+                    .spriteNodeColoredIndexed2DYCBCRNoBlending,
+                    .spriteNodeColoredIndexed2DYCBCRAlphaBlending,
+                    .spriteNodeColoredIndexed2DYCBCRAdditiveBlending,
+                    .spriteNodeColoredIndexed2DYCBCRPremultipliedBlending,
                     .spriteNodeIndexed3DNoBlending,
                     .spriteNodeIndexed3DAlphaBlending,
                     .spriteNodeIndexed3DAdditiveBlending,
@@ -660,7 +687,11 @@ class Graphics {
                     .spriteNodeColoredIndexed3DPremultipliedBlending:
                 renderEncoder.setFragmentBuffer(uniformsBuffer, offset: 0, index: MetalPipeline.spriteNodeIndexedFragmentIndexUniforms)
                     
-            case .spriteNodeIndexed3DYCBCRNoBlending,
+            case .spriteNodeIndexed2DYCBCRNoBlending,
+                    .spriteNodeIndexed2DYCBCRAlphaBlending,
+                    .spriteNodeIndexed2DYCBCRAdditiveBlending,
+                    .spriteNodeIndexed2DYCBCRPremultipliedBlending,
+                    .spriteNodeIndexed3DYCBCRNoBlending,
                     .spriteNodeIndexed3DYCBCRAlphaBlending,
                     .spriteNodeIndexed3DYCBCRAdditiveBlending,
                     .spriteNodeIndexed3DYCBCRPremultipliedBlending,
@@ -705,6 +736,10 @@ class Graphics {
                     .spriteNodeIndexed2DAlphaBlending,
                     .spriteNodeIndexed2DAdditiveBlending,
                     .spriteNodeIndexed2DPremultipliedBlending,
+                    .spriteNodeIndexed2DYCBCRNoBlending,
+                    .spriteNodeIndexed2DYCBCRAlphaBlending,
+                    .spriteNodeIndexed2DYCBCRAdditiveBlending,
+                    .spriteNodeIndexed2DYCBCRPremultipliedBlending,
                     .spriteNodeColoredIndexed2DNoBlending,
                     .spriteNodeColoredIndexed2DAlphaBlending,
                     .spriteNodeColoredIndexed2DAdditiveBlending,
@@ -852,7 +887,10 @@ class Graphics {
                     .sprite3DYCBCRPremultipliedBlending:
                 renderEncoder.setFragmentTexture(texture, index: MetalPipeline.spriteYCBCRFragmentIndexTextureY)
                 
-            case
+            case .spriteNodeIndexed2DYCBCRNoBlending,
+                    .spriteNodeIndexed2DYCBCRAlphaBlending,
+                    .spriteNodeIndexed2DYCBCRAdditiveBlending,
+                    .spriteNodeIndexed2DYCBCRPremultipliedBlending,
                     .spriteNodeColoredIndexed2DYCBCRNoBlending,
                     .spriteNodeColoredIndexed2DYCBCRAlphaBlending,
                     .spriteNodeColoredIndexed2DYCBCRAdditiveBlending,
@@ -880,14 +918,18 @@ class Graphics {
                     .sprite2DYCBCRAlphaBlending,
                     .sprite2DYCBCRAdditiveBlending,
                     .sprite2DYCBCRPremultipliedBlending,
-                
                     .sprite3DYCBCRNoBlending,
                     .sprite3DYCBCRAlphaBlending,
                     .sprite3DYCBCRAdditiveBlending,
                     .sprite3DYCBCRPremultipliedBlending:
                 renderEncoder.setFragmentTexture(texture, index: MetalPipeline.spriteYCBCRFragmentIndexTextureCBCR)
                 
-            case .spriteNodeColoredIndexed2DYCBCRNoBlending,
+            case .spriteNodeIndexed2DYCBCRNoBlending,
+                    .spriteNodeIndexed2DYCBCRAlphaBlending,
+                    .spriteNodeIndexed2DYCBCRAdditiveBlending,
+                    .spriteNodeIndexed2DYCBCRPremultipliedBlending,
+                
+                    .spriteNodeColoredIndexed2DYCBCRNoBlending,
                     .spriteNodeColoredIndexed2DYCBCRAlphaBlending,
                     .spriteNodeColoredIndexed2DYCBCRAdditiveBlending,
                     .spriteNodeColoredIndexed2DYCBCRPremultipliedBlending,
