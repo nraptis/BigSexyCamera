@@ -14,6 +14,43 @@ import CoreVideo
 
 class CameraScene: GraphicsDelegate {
     
+    struct SpriteColored3DNode {
+        let x: Float
+        let y: Float
+        let z: Float
+        
+        let u: Float
+        let v: Float
+        
+        let r: Float
+        let g: Float
+        let b: Float
+        let a: Float
+    }
+    
+    struct SpriteColored2DNode {
+        let x: Float
+        let y: Float
+        
+        let u: Float
+        let v: Float
+        
+        let r: Float
+        let g: Float
+        let b: Float
+        let a: Float
+    }
+    
+    struct Sprite3DNode {
+        let x: Float
+        let y: Float
+        let z: Float
+        
+        let u: Float
+        let v: Float
+    }
+    
+    
     lazy var cameraInputProvider: AugmentedRealityCameraInputProvider = {
         let result = AugmentedRealityCameraInputProvider(screenWidth: Int(graphics.width + 0.5),
                                             
@@ -25,30 +62,90 @@ class CameraScene: GraphicsDelegate {
     
     var textureCache: CVMetalTextureCache?
     
-    
     var videoTextureDidAttemptCreate = false
     var videoTextureY: MTLTexture?
     var videoTextureCBCR: MTLTexture?
-    var videoTexture: MTLTexture?
     
-    var videoUniformsVertex = UniformsSpriteVertex()
-    var videoUniformsVertexBuffer: MTLBuffer!
-    var videoUniformsFragment = UniformsSpriteFragment()
-    var videoUniformsFragmentBuffer: MTLBuffer!
-    var videoPositions: [Float] = [-256.0, -256.0, 0.0,
+    var video3DUniformsVertex = UniformsSpriteVertex()
+    var video3DUniformsVertexBuffer: MTLBuffer!
+    var video3DUniformsFragment = UniformsSpriteFragment()
+    var video3DUniformsFragmentBuffer: MTLBuffer!
+    var video3DPositions: [Float] = [-256.0, -256.0, 0.0,
                                      256.0, -256.0, 0.0,
                                     -256.0, 256.0, 0.0,
                                     256.0, 256.0, 0.0]
-    var videoPositionsBuffer: MTLBuffer!
-    var videoTextureCoords: [Float] = [0.0, 0.0,
+    var video3DPositionsBuffer: MTLBuffer!
+    var video3DTextureCoords: [Float] = [0.0, 0.0,
                                         1.0, 0.0,
                                         0.0, 1.0,
                                         1.0, 1.0]
-    var videoTextureCoordsBuffer: MTLBuffer!
+    var video3DTextureCoordsBuffer: MTLBuffer!
+    
+    
+    
+    var video2DUniformsVertex = UniformsSpriteVertex()
+    var video2DUniformsVertexBuffer: MTLBuffer!
+    var video2DUniformsFragment = UniformsSpriteFragment()
+    var video2DUniformsFragmentBuffer: MTLBuffer!
+    var video2DPositions: [Float] = [-128.0, -128.0,
+                                      128.0, -128.0,
+                                    -128.0, 128.0,
+                                      128.0, 128.0]
+    var video2DPositionsBuffer: MTLBuffer!
+    var video2DTextureCoords: [Float] = [0.0, 0.0,
+                                        1.0, 0.0,
+                                        0.0, 1.0,
+                                        1.0, 1.0]
+    var video2DTextureCoordsBuffer: MTLBuffer!
+    
+    
+    
+    var videoNodeColored3DUniformsVertex = UniformsSpriteNodeIndexedVertex()
+    var videoNodeColored3DUniformsVertexBuffer: MTLBuffer!
+    var videoNodeColored3DUniformsFragment = UniformsSpriteNodeIndexedFragment()
+    var videoNodeColored3DUniformsFragmentBuffer: MTLBuffer!
+    var videoNodeColored3DData: [SpriteColored3DNode] = [
+        SpriteColored3DNode(x: -64.0, y: -64.0, z: 0.0, u: 0.0, v: 0.0, r: 1.0, g: 0.0, b: 0.0, a: 1.0),
+        SpriteColored3DNode(x: 64.0, y: -64.0, z: 0.0, u: 1.0, v: 0.0, r: 1.0, g: 0.0, b: 0.0, a: 0.25),
+        SpriteColored3DNode(x: -64.0, y: 64.0, z: 0.0, u: 0.0, v: 1.0, r: 1.0, g: 0.0, b: 1.0, a: 1.0),
+        SpriteColored3DNode(x: 64.0, y: 64.0, z: 0.0, u: 1.0, v: 1.0, r: 0.0, g: 1.0, b: 1.0, a: 1.0)]
+    var videoNodeColored3DDataBuffer: MTLBuffer!
+    var videoNodeColored3DIndices: [UInt16] = [0, 1, 2, 3]
+    var videoNodeColored3DIndexBuffer: MTLBuffer!
+    
+    
+    
+    var videoNodeColored2DUniformsVertex = UniformsSpriteNodeIndexedVertex()
+    var videoNodeColored2DUniformsVertexBuffer: MTLBuffer!
+    var videoNodeColored2DUniformsFragment = UniformsSpriteNodeIndexedFragment()
+    var videoNodeColored2DUniformsFragmentBuffer: MTLBuffer!
+    var videoNodeColored2DData: [SpriteColored2DNode] = [
+        SpriteColored2DNode(x: -128.0, y: -128.0, u: 0.0, v: 0.0, r: 1.0, g: 1.0, b: 0.0, a: 1.0),
+        SpriteColored2DNode(x: 128.0, y: -128.0, u: 1.0, v: 0.0, r: 0.0, g: 1.0, b: 1.0, a: 1.0),
+        SpriteColored2DNode(x: -128.0, y: 128.0, u: 0.0, v: 1.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0),
+        SpriteColored2DNode(x: 128, y: 128.0, u: 1.0, v: 1.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0)]
+    var videoNodeColored2DDataBuffer: MTLBuffer!
+    var videoNodeColored2DIndices: [UInt16] = [0, 1, 2, 3]
+    var videoNodeColored2DIndexBuffer: MTLBuffer!
     
     
     
     
+    var videoNode3DUniformsVertex = UniformsSpriteNodeIndexedVertex()
+    var videoNode3DUniformsVertexBuffer: MTLBuffer!
+    var videoNode3DUniformsFragment = UniformsSpriteNodeIndexedFragment()
+    var videoNode3DUniformsFragmentBuffer: MTLBuffer!
+    var videoNode3DData: [Sprite3DNode] = [
+        Sprite3DNode(x: -64.0, y: -64.0, z: 0.0, u: 0.0, v: 0.0),
+        Sprite3DNode(x: 64.0, y: -64.0, z: 0.0, u: 1.0, v: 0.0),
+        Sprite3DNode(x: -64.0, y: 64.0, z: 0.0, u: 0.0, v: 1.0),
+        Sprite3DNode(x: 64.0, y: 64.0, z: 0.0, u: 1.0, v: 1.0)]
+    var videoNode3DDataBuffer: MTLBuffer!
+    var videoNode3DIndices: [UInt16] = [0, 1, 2, 3]
+    var videoNode3DIndexBuffer: MTLBuffer!
+    
+    
+    //Sprite3DNode
     
     var pony2DTexture: MTLTexture?
     var pony2DUniformsVertex = UniformsSpriteVertex()
@@ -67,19 +164,7 @@ class CameraScene: GraphicsDelegate {
     var pony2DTextureCoordsBuffer: MTLBuffer!
     
     
-    struct SpriteColored3DNode {
-        let x: Float
-        let y: Float
-        let z: Float
-        
-        let u: Float
-        let v: Float
-        
-        let r: Float
-        let g: Float
-        let b: Float
-        let a: Float
-    }
+    
     
     
     var pony3DTexture: MTLTexture?
@@ -93,7 +178,6 @@ class CameraScene: GraphicsDelegate {
         SpriteColored3DNode(x: -64.0, y: 64.0, z: 0.0, u: 0.0, v: 1.0, r: 1.0, g: 1.0, b: 1.0, a: 0.75),
         SpriteColored3DNode(x: 64.0, y: 64.0, z: 0.0, u: 1.0, v: 1.0, r: 0.75, g: 0.75, b: 0.75, a: 1.0)]
     var pony3DDataBuffer: MTLBuffer!
-    
     var pony3DIndices: [UInt16] = [0, 1, 2, 3]
     var pony3DIndexBuffer: MTLBuffer!
     
@@ -114,20 +198,72 @@ class CameraScene: GraphicsDelegate {
             let _width_2 = -(width_2)
             let _height_2 = -(height_2)
             
-            videoPositions[0] = _width_2
-            videoPositions[1] = _height_2
-            videoPositions[3] = width_2
-            videoPositions[4] = _height_2
-            videoPositions[6] = _width_2
-            videoPositions[7] = height_2
-            videoPositions[9] = width_2
-            videoPositions[10] = height_2
+            video3DPositions[0] = _width_2
+            video3DPositions[1] = _height_2
+            video3DPositions[3] = width_2
+            video3DPositions[4] = _height_2
+            video3DPositions[6] = _width_2
+            video3DPositions[7] = height_2
+            video3DPositions[9] = width_2
+            video3DPositions[10] = height_2
             
-            videoPositionsBuffer = graphics.buffer(array: videoPositions)
-            videoTextureCoordsBuffer = graphics.buffer(array: videoTextureCoords)
+            video3DPositionsBuffer = graphics.buffer(array: video3DPositions)
+            video3DTextureCoordsBuffer = graphics.buffer(array: video3DTextureCoords)
 
-            videoUniformsVertexBuffer = graphics.buffer(uniform: videoUniformsVertex)
-            videoUniformsFragmentBuffer = graphics.buffer(uniform: videoUniformsFragment)
+            video3DUniformsVertexBuffer = graphics.buffer(uniform: video3DUniformsVertex)
+            video3DUniformsFragmentBuffer = graphics.buffer(uniform: video3DUniformsFragment)
+        }
+        
+        if true {
+            
+            let width = Float(graphics.width)
+            let height = Float(graphics.height)
+            
+            let width_2 = width * 0.5
+            let height_2 = height * 0.5
+            let _width_2 = -(width_2)
+            let _height_2 = -(height_2)
+            
+            video2DPositions[0] = _width_2
+            video2DPositions[1] = _height_2
+            video2DPositions[2] = width_2
+            video2DPositions[3] = _height_2
+            video2DPositions[4] = _width_2
+            video2DPositions[5] = height_2
+            video2DPositions[6] = width_2
+            video2DPositions[7] = height_2
+            
+            video2DPositionsBuffer = graphics.buffer(array: video2DPositions)
+            video2DTextureCoordsBuffer = graphics.buffer(array: video2DTextureCoords)
+
+            video2DUniformsVertexBuffer = graphics.buffer(uniform: video2DUniformsVertex)
+            video2DUniformsFragmentBuffer = graphics.buffer(uniform: video2DUniformsFragment)
+        }
+        
+        if true {
+            videoNodeColored3DUniformsVertexBuffer = graphics.buffer(uniform: videoNodeColored3DUniformsVertex)
+            videoNodeColored3DUniformsFragmentBuffer = graphics.buffer(uniform: videoNodeColored3DUniformsFragment)
+            
+            videoNodeColored3DDataBuffer = graphics.buffer(array: videoNodeColored3DData)
+            videoNodeColored3DIndexBuffer = graphics.buffer(array: videoNodeColored3DIndices)
+        }
+        
+        
+        if true {
+            videoNode3DUniformsVertexBuffer = graphics.buffer(uniform: videoNode3DUniformsVertex)
+            videoNode3DUniformsFragmentBuffer = graphics.buffer(uniform: videoNode3DUniformsFragment)
+            
+            videoNode3DDataBuffer = graphics.buffer(array: videoNode3DData)
+            videoNode3DIndexBuffer = graphics.buffer(array: videoNode3DIndices)
+        }
+        
+        
+        if true {
+            videoNodeColored2DUniformsVertexBuffer = graphics.buffer(uniform: videoNodeColored2DUniformsVertex)
+            videoNodeColored2DUniformsFragmentBuffer = graphics.buffer(uniform: videoNodeColored2DUniformsFragment)
+            
+            videoNodeColored2DDataBuffer = graphics.buffer(array: videoNodeColored2DData)
+            videoNodeColored2DIndexBuffer = graphics.buffer(array: videoNodeColored2DIndices)
         }
         
         pony2DTexture = graphics.loadTexture(fileName: "icon_pony.png")
@@ -229,99 +365,35 @@ class CameraScene: GraphicsDelegate {
         }
         */
         
-        if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR, let videoTexture = videoTexture {
-            
-            /*
-            if let pipelineStateYCBCRToRGBA = graphics.pipeline.pipelineStateYCBCRToRGBA {
-                guard let cmdBuffer = graphics.engine.commandQueue.makeCommandBuffer() else { return }
-                guard let computeEncoder = cmdBuffer.makeComputeCommandEncoder() else { return }
-                
-                computeEncoder.setComputePipelineState(graphics.pipeline.pipelineStateYCBCRToRGBA)
-                computeEncoder.setTexture(videoTextureY, index: 0)
-                computeEncoder.setTexture(videoTextureCBCR, index: 1)
-                computeEncoder.setTexture(videoTextureCBCR, index: 2)
-                let threadgroupSize = MTLSizeMake(pipelineStateYCBCRToRGBA.threadExecutionWidth,
-                                                  pipelineStateYCBCRToRGBA.maxTotalThreadsPerThreadgroup / pipelineStateYCBCRToRGBA.threadExecutionWidth, 1)
-                let threadgroupCount = MTLSize(width: Int(ceil(Float(videoTexture.width) / Float(threadgroupSize.width))),
-                                               height: Int(ceil(Float(videoTexture.height) / Float(threadgroupSize.height))),
-                                               depth: 1)
-                computeEncoder.dispatchThreadgroups(threadgroupCount, threadsPerThreadgroup: threadgroupSize)
-                computeEncoder.endEncoding()
-            }
-            */
-            
-            
-            /*
-            pony3DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
-                                                        height: graphics.height)
-            
-            var modelView = matrix_identity_float4x4
-            modelView.translate(x: graphics.width * 0.5, y: graphics.height * 0.25, z: 0.0)
-            modelView.scale(2.0)
-            modelView.rotateZ(degrees: -25.0)
-            
-            pony3DUniformsVertex.modelViewMatrix = modelView
-            
-            graphics.write(buffer: pony3DUniformsVertexBuffer, uniform: pony3DUniformsVertex)
-            
-            pony3DUniformsFragment.green = Float.random(in: 0.5...1.0)
-            pony3DUniformsFragment.alpha = 0.5
-            graphics.write(buffer: pony3DUniformsFragmentBuffer, uniform: pony3DUniformsFragment)
-            
-            graphics.set(pipelineState: .spriteNodeColoredIndexed3DAlphaBlending,
-                         renderEncoder: renderEncoder)
-            
-            graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
-            
-            
-            graphics.setVertexDataBuffer(pony3DDataBuffer,
-                                         renderEncoder: renderEncoder)
-            graphics.setVertexUniformsBuffer(pony3DUniformsVertexBuffer,
-                                             renderEncoder: renderEncoder)
-            
-            graphics.setFragmentTexture(videoTexture,
-                                        renderEncoder: renderEncoder)
-            graphics.setFragmentUniformsBuffer(pony3DUniformsFragmentBuffer,
-                                               renderEncoder: renderEncoder)
-            
-            
-            renderEncoder.drawIndexedPrimitives(type: .triangleStrip,
-                                                indexCount: pony3DIndices.count,
-                                                indexType: .uint16,
-                                                indexBuffer: pony3DIndexBuffer,
-                                                indexBufferOffset: 0,
-                                                instanceCount: 1)
-            
-            */
-            
-            
-            videoUniformsVertex.projectionMatrix.ortho(width: graphics.width,
+        if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR {
+
+            video3DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
                                                         height: graphics.height)
             
             var modelView = matrix_identity_float4x4
             modelView.translate(x: graphics.width * 0.5, y: graphics.height * 0.5, z: 0.0)
-            videoUniformsVertex.modelViewMatrix = modelView
+            video3DUniformsVertex.modelViewMatrix = modelView
             
-            graphics.write(buffer: videoUniformsVertexBuffer, uniform: videoUniformsVertex)
-            graphics.write(buffer: videoUniformsFragmentBuffer, uniform: videoUniformsFragment)
+            graphics.write(buffer: video3DUniformsVertexBuffer, uniform: video3DUniformsVertex)
+            graphics.write(buffer: video3DUniformsFragmentBuffer, uniform: video3DUniformsFragment)
             
             graphics.set(pipelineState: .sprite3DYCBCRNoBlending,
                          renderEncoder: renderEncoder)
             
             graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
             
-            graphics.setVertexPositionsBuffer(videoPositionsBuffer,
+            graphics.setVertexPositionsBuffer(video3DPositionsBuffer,
                                               renderEncoder: renderEncoder)
-            graphics.setVertexTextureCoordsBuffer(videoTextureCoordsBuffer,
+            graphics.setVertexTextureCoordsBuffer(video3DTextureCoordsBuffer,
                                                   renderEncoder: renderEncoder)
             graphics.setFragmentTextureY(videoTextureY,
                                          renderEncoder: renderEncoder)
             graphics.setFragmentTextureCBCR(videoTextureCBCR,
                                             renderEncoder: renderEncoder)
             
-            graphics.setVertexUniformsBuffer(videoUniformsVertexBuffer,
+            graphics.setVertexUniformsBuffer(video3DUniformsVertexBuffer,
                                              renderEncoder: renderEncoder)
-            graphics.setFragmentUniformsBuffer(videoUniformsFragmentBuffer,
+            graphics.setFragmentUniformsBuffer(video3DUniformsFragmentBuffer,
                                                renderEncoder: renderEncoder)
             
             renderEncoder.drawPrimitives(type: .triangleStrip,
@@ -332,6 +404,85 @@ class CameraScene: GraphicsDelegate {
             
         }
         
+        if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR {
+            
+            videoNodeColored3DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
+                                                        height: graphics.height)
+            
+            var modelView = matrix_identity_float4x4
+            modelView.translate(x: graphics.width * 0.25, y: graphics.height * 0.75, z: 0.0)
+            videoNodeColored3DUniformsVertex.modelViewMatrix = modelView
+            
+            graphics.write(buffer: videoNodeColored3DUniformsVertexBuffer, uniform: videoNodeColored3DUniformsVertex)
+            graphics.write(buffer: videoNodeColored3DUniformsFragmentBuffer, uniform: videoNodeColored3DUniformsFragment)
+            
+            graphics.set(pipelineState: .spriteNodeColoredIndexed3DYCBCRAlphaBlending,
+                         renderEncoder: renderEncoder)
+            
+            graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
+            
+            graphics.setVertexDataBuffer(videoNodeColored3DDataBuffer,
+                                              renderEncoder: renderEncoder)
+            
+            graphics.setFragmentTextureY(videoTextureY,
+                                         renderEncoder: renderEncoder)
+            graphics.setFragmentTextureCBCR(videoTextureCBCR,
+                                            renderEncoder: renderEncoder)
+            
+            graphics.setVertexUniformsBuffer(videoNodeColored3DUniformsVertexBuffer,
+                                             renderEncoder: renderEncoder)
+            graphics.setFragmentUniformsBuffer(videoNodeColored3DUniformsFragmentBuffer,
+                                               renderEncoder: renderEncoder)
+            
+            renderEncoder.drawIndexedPrimitives(type: .triangleStrip,
+                                                indexCount: videoNodeColored3DIndices.count,
+                                                indexType: .uint16,
+                                                indexBuffer: videoNodeColored3DIndexBuffer,
+                                                indexBufferOffset: 0,
+                                                instanceCount: 1)
+            
+            
+        }
+        
+        
+        
+        if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR {
+            
+            videoNode3DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
+                                                        height: graphics.height)
+            
+            var modelView = matrix_identity_float4x4
+            modelView.translate(x: graphics.width * 0.75, y: graphics.height * 0.25, z: 0.0)
+            videoNode3DUniformsVertex.modelViewMatrix = modelView
+            
+            graphics.write(buffer: videoNode3DUniformsVertexBuffer, uniform: videoNode3DUniformsVertex)
+            graphics.write(buffer: videoNode3DUniformsFragmentBuffer, uniform: videoNode3DUniformsFragment)
+            
+            graphics.set(pipelineState: .spriteNodeIndexed3DYCBCRAlphaBlending,
+                         renderEncoder: renderEncoder)
+            
+            graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
+            
+            graphics.setVertexDataBuffer(videoNode3DDataBuffer,
+                                              renderEncoder: renderEncoder)
+            
+            graphics.setFragmentTextureY(videoTextureY,
+                                         renderEncoder: renderEncoder)
+            graphics.setFragmentTextureCBCR(videoTextureCBCR,
+                                            renderEncoder: renderEncoder)
+            
+            graphics.setVertexUniformsBuffer(videoNode3DUniformsVertexBuffer,
+                                             renderEncoder: renderEncoder)
+            graphics.setFragmentUniformsBuffer(videoNode3DUniformsFragmentBuffer,
+                                               renderEncoder: renderEncoder)
+            
+            renderEncoder.drawIndexedPrimitives(type: .triangleStrip,
+                                                indexCount: videoNode3DIndices.count,
+                                                indexType: .uint16,
+                                                indexBuffer: videoNode3DIndexBuffer,
+                                                indexBufferOffset: 0,
+                                                instanceCount: 1)
+        }
         
     }
     
@@ -379,6 +530,101 @@ class CameraScene: GraphicsDelegate {
                                          instanceCount: 1)
             
         }
+        
+        
+        if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR {
+
+            video2DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
+                                                        height: graphics.height)
+            
+            var modelView = matrix_identity_float4x4
+            modelView.translate(x: graphics.width * 0.5, y: graphics.height * 0.25, z: 0.0)
+            modelView.scale(0.25)
+            video2DUniformsVertex.modelViewMatrix = modelView
+            
+            video2DUniformsFragment.red = 1.0
+            video2DUniformsFragment.green = 0.0
+            video2DUniformsFragment.blue = 0.5
+            video2DUniformsFragment.alpha = 0.5
+            
+            graphics.write(buffer: video2DUniformsVertexBuffer, uniform: video2DUniformsVertex)
+            graphics.write(buffer: video2DUniformsFragmentBuffer, uniform: video2DUniformsFragment)
+            
+            graphics.set(pipelineState: .sprite2DYCBCRAlphaBlending,
+                         renderEncoder: renderEncoder)
+            
+            graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
+            
+            graphics.setVertexPositionsBuffer(video2DPositionsBuffer,
+                                              renderEncoder: renderEncoder)
+            graphics.setVertexTextureCoordsBuffer(video2DTextureCoordsBuffer,
+                                                  renderEncoder: renderEncoder)
+            graphics.setFragmentTextureY(videoTextureY,
+                                         renderEncoder: renderEncoder)
+            graphics.setFragmentTextureCBCR(videoTextureCBCR,
+                                            renderEncoder: renderEncoder)
+            
+            graphics.setVertexUniformsBuffer(video2DUniformsVertexBuffer,
+                                             renderEncoder: renderEncoder)
+            graphics.setFragmentUniformsBuffer(video2DUniformsFragmentBuffer,
+                                               renderEncoder: renderEncoder)
+            
+            renderEncoder.drawPrimitives(type: .triangleStrip,
+                                         vertexStart: 0,
+                                         vertexCount: 4,
+                                         instanceCount: 1)
+            
+            
+        }
+        
+        
+        if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR {
+            
+            videoNodeColored2DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
+                                                        height: graphics.height)
+            
+            var modelView = matrix_identity_float4x4
+            modelView.translate(x: graphics.width * 0.75, y: graphics.height * 0.75, z: 0.0)
+            videoNodeColored2DUniformsVertex.modelViewMatrix = modelView
+            
+            videoNodeColored2DUniformsFragment.red = 1.0
+            videoNodeColored2DUniformsFragment.green = 1.0
+            videoNodeColored2DUniformsFragment.blue = 1.0
+            videoNodeColored2DUniformsFragment.alpha = 1.0
+            
+            
+            graphics.write(buffer: videoNodeColored2DUniformsVertexBuffer, uniform: videoNodeColored2DUniformsVertex)
+            graphics.write(buffer: videoNodeColored2DUniformsFragmentBuffer, uniform: videoNodeColored2DUniformsFragment)
+            
+            graphics.set(pipelineState: .spriteNodeColoredIndexed2DYCBCRAlphaBlending,
+                         renderEncoder: renderEncoder)
+            
+            graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
+            
+            graphics.setVertexDataBuffer(videoNodeColored2DDataBuffer,
+                                              renderEncoder: renderEncoder)
+            
+            graphics.setFragmentTextureY(videoTextureY,
+                                         renderEncoder: renderEncoder)
+            graphics.setFragmentTextureCBCR(videoTextureCBCR,
+                                            renderEncoder: renderEncoder)
+            
+            graphics.setVertexUniformsBuffer(videoNodeColored2DUniformsVertexBuffer,
+                                             renderEncoder: renderEncoder)
+            graphics.setFragmentUniformsBuffer(videoNodeColored2DUniformsFragmentBuffer,
+                                               renderEncoder: renderEncoder)
+            
+            renderEncoder.drawIndexedPrimitives(type: .triangleStrip,
+                                                indexCount: videoNodeColored2DIndices.count,
+                                                indexType: .uint16,
+                                                indexBuffer: videoNodeColored2DIndexBuffer,
+                                                indexBufferOffset: 0,
+                                                instanceCount: 1)
+            
+            
+        }
+        
+        
     }
     
     func touchBegan(touch: UITouch, x: Float, y: Float) {
@@ -410,8 +656,14 @@ class CameraScene: GraphicsDelegate {
         
         let device = graphics.device
         
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
+        //let width = CVPixelBufferGetWidth(pixelBuffer)
+        //let height = CVPixelBufferGetHeight(pixelBuffer)
+        
+        let width = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
+        let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
+        
+        print("plane \(planeIndex) width: \(width), height: \(height)")
+        
         //let pixelFormat = CVPixelBufferGetPixelFormatType(pixelBuffer)
         
         guard width > 0 else { return nil }
@@ -447,42 +699,46 @@ class CameraScene: GraphicsDelegate {
 }
 
 extension CameraScene: AugmentedRealityCameraInputProviderReceiving {
-    func provider(didReceive frame: ARFrame) {
+    
+    func provider(didReceive data: AugmentedRealityCameraInputProviderData) {
         
-        print("frame:")
-        
-        if videoTextureDidAttemptCreate == false {
+        if videoTextureDidAttemptCreate == false, let pixelBuffer = data.capturedImagePixelBuffer {
             //videoTextureDidAttemptCreate = true
             
-            let planeCount = CVPixelBufferGetPlaneCount(frame.capturedImage)
+            let planeCount = CVPixelBufferGetPlaneCount(pixelBuffer)
             
-            print("planeCount = \(planeCount)")
+            //print("planeCount = \(planeCount)")
             
-            let width = CVPixelBufferGetWidth(frame.capturedImage)
-            let height = CVPixelBufferGetHeight(frame.capturedImage)
+            let width = CVPixelBufferGetWidth(pixelBuffer)
+            let height = CVPixelBufferGetHeight(pixelBuffer)
             
             if planeCount >= 2 && width > 0 && height > 0 {
                 
-                videoTextureY = generateMetalTexture(pixelBuffer: frame.capturedImage,
+                /*
+                capturedImageTextureY = createTexture(fromPixelBuffer: pixelBuffer, pixelFormat:.r8Unorm, planeIndex:0)
+                        capturedImageTextureCbCr = createTexture(fromPixelBuffer: pixelBuffer, pixelFormat:.rg8Unorm, planeIndex:1)
+                */
+                 
+                videoTextureY = generateMetalTexture(pixelBuffer: pixelBuffer,
                                                      pixelFormat: .r8Unorm,
                                                      planeIndex: 0)
-                videoTextureCBCR = generateMetalTexture(pixelBuffer: frame.capturedImage,
+                videoTextureCBCR = generateMetalTexture(pixelBuffer: pixelBuffer,
                                                         pixelFormat: .rg8Unorm,
                                                         planeIndex: 1)
-                
-                
-                
-                videoTexture = generateMetalTexture(device: graphics.device,
-                                                    width: width,
-                                                    height: height,
-                                                    usage: [.shaderRead, .shaderWrite],
-                                                    pixelFormat: .rgba8Unorm)
                 
                 //print("videoTextureY = \(videoTextureY)")
                 //print("videoTextureCBCR = \(videoTextureCBCR)")
                 
             }
         }
+        
+    }
+    
+    func provider(didReceive frame: ARFrame) {
+        
+        print("frame:")
+        
+        
     }
     
     func receive(image: UIImage) {

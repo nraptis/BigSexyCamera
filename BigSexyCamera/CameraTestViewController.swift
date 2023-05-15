@@ -78,10 +78,9 @@ class CameraTestViewController: UIViewController {
 }
 
 extension CameraTestViewController: AugmentedRealityCameraInputProviderReceiving {
-    func provider(didReceive frame: ARFrame) {
+    func provider(didReceive data: AugmentedRealityCameraInputProviderData) {
         
     }
-    
     
     func receive(image: UIImage) {
         imageView.image = image

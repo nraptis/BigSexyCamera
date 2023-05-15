@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2052A119ADD000D0D93 /* Sprite2D.swift */; };
+		0D84B2082A119AF7000D0D93 /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2072A119AF7000D0D93 /* Quaternion.swift */; };
 		0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC02A1119D200265BB1 /* Matrix.swift */; };
 		0DB44CC32A1119D200265BB1 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC12A1119D200265BB1 /* Math.swift */; };
-		0DB44CC62A111A1100265BB1 /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC42A111A1100265BB1 /* Quaternion.swift */; };
-		0DB44CC72A111A1100265BB1 /* Sprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC52A111A1100265BB1 /* Sprite2D.swift */; };
 		0DB44CCD2A111AB800265BB1 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC92A111AB800265BB1 /* MetalView.swift */; };
 		0DB44CCE2A111AB800265BB1 /* MetalPipeline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CCA2A111AB800265BB1 /* MetalPipeline.swift */; };
 		0DB44CCF2A111AB800265BB1 /* MetalEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CCB2A111AB800265BB1 /* MetalEngine.swift */; };
@@ -36,7 +36,6 @@
 		0DB44CFA2A111C0F00265BB1 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CF72A111C0F00265BB1 /* Ball.swift */; };
 		0DB44CFC2A111F8100265BB1 /* icon_pony.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB44CFB2A111F8100265BB1 /* icon_pony.png */; };
 		0DB44CFE2A11324200265BB1 /* CameraScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CFD2A11324200265BB1 /* CameraScene.swift */; };
-		0DB44D002A11829600265BB1 /* ChannelCombiner.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CFF2A11829600265BB1 /* ChannelCombiner.metal */; };
 		EB08DC392A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */; };
 		EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */; };
 		EB691D122A103D7300975AC1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D112A103D7300975AC1 /* AppDelegate.swift */; };
@@ -68,10 +67,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D84B2052A119ADD000D0D93 /* Sprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite2D.swift; sourceTree = "<group>"; };
+		0D84B2072A119AF7000D0D93 /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quaternion.swift; sourceTree = "<group>"; };
 		0DB44CC02A1119D200265BB1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		0DB44CC12A1119D200265BB1 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
-		0DB44CC42A111A1100265BB1 /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Quaternion.swift; path = ../../PongCLPA/PongCLPA/Quaternion.swift; sourceTree = "<group>"; };
-		0DB44CC52A111A1100265BB1 /* Sprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Sprite2D.swift; path = ../../PongCLPA/PongCLPA/Sprite2D.swift; sourceTree = "<group>"; };
 		0DB44CC92A111AB800265BB1 /* MetalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
 		0DB44CCA2A111AB800265BB1 /* MetalPipeline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalPipeline.swift; sourceTree = "<group>"; };
 		0DB44CCB2A111AB800265BB1 /* MetalEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalEngine.swift; sourceTree = "<group>"; };
@@ -97,7 +96,6 @@
 		0DB44CF72A111C0F00265BB1 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
 		0DB44CFB2A111F8100265BB1 /* icon_pony.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_pony.png; sourceTree = "<group>"; };
 		0DB44CFD2A11324200265BB1 /* CameraScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScene.swift; sourceTree = "<group>"; };
-		0DB44CFF2A11829600265BB1 /* ChannelCombiner.metal */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.metal; path = ChannelCombiner.metal; sourceTree = "<group>"; };
 		EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityCameraInputProvider.swift; sourceTree = "<group>"; };
 		EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Size+Aspect.swift"; sourceTree = "<group>"; };
 		EB691D0E2A103D7300975AC1 /* BigSexyCamera.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BigSexyCamera.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -187,7 +185,6 @@
 				0DB44CE22A111B3500265BB1 /* ShapeNodeIndexed.metal */,
 				0DB44CE32A111B3500265BB1 /* SpriteNodeIndexed.metal */,
 				0DB44CE42A111B3500265BB1 /* Sprite.metal */,
-				0DB44CFF2A11829600265BB1 /* ChannelCombiner.metal */,
 			);
 			path = Shaders;
 			sourceTree = "<group>";
@@ -239,9 +236,9 @@
 				EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */,
 				0DB44CC12A1119D200265BB1 /* Math.swift */,
 				0DB44CC02A1119D200265BB1 /* Matrix.swift */,
-				0DB44CC42A111A1100265BB1 /* Quaternion.swift */,
-				0DB44CC52A111A1100265BB1 /* Sprite2D.swift */,
+				0D84B2072A119AF7000D0D93 /* Quaternion.swift */,
 				0DB44CFD2A11324200265BB1 /* CameraScene.swift */,
+				0D84B2052A119ADD000D0D93 /* Sprite2D.swift */,
 			);
 			path = BigSexyCamera;
 			sourceTree = "<group>";
@@ -396,10 +393,10 @@
 			files = (
 				0DB44CFA2A111C0F00265BB1 /* Ball.swift in Sources */,
 				0DB44CF22A111B3600265BB1 /* SpriteNodeIndexed.metal in Sources */,
-				0DB44CC62A111A1100265BB1 /* Quaternion.swift in Sources */,
 				0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */,
 				0DB44CEF2A111B3600265BB1 /* Uniforms.swift in Sources */,
 				0DB44CF12A111B3600265BB1 /* ShapeNodeIndexed.metal in Sources */,
+				0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */,
 				0DB44CE62A111B3600265BB1 /* RecyclerSprite2D.swift in Sources */,
 				0DB44CE92A111B3600265BB1 /* RecyclerShapeQuad2D.swift in Sources */,
 				0DB44CE52A111B3600265BB1 /* Recycler.swift in Sources */,
@@ -414,14 +411,13 @@
 				0DB44CD22A111AEC00265BB1 /* Graphics.swift in Sources */,
 				EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */,
 				0DB44CEB2A111B3600265BB1 /* UniformsShapeNodeIndexed.swift in Sources */,
-				0DB44D002A11829600265BB1 /* ChannelCombiner.metal in Sources */,
 				EB691D422A103E0700975AC1 /* CameraTestViewController.swift in Sources */,
 				0DB44CF02A111B3600265BB1 /* Shape.metal in Sources */,
 				0DB44CCD2A111AB800265BB1 /* MetalView.swift in Sources */,
 				0DB44CF82A111C0F00265BB1 /* Paddle.swift in Sources */,
+				0D84B2082A119AF7000D0D93 /* Quaternion.swift in Sources */,
 				0DB44CE72A111B3600265BB1 /* RecyclerShapeQuad3D.swift in Sources */,
 				0DB44CED2A111B3600265BB1 /* UniformsSprite.swift in Sources */,
-				0DB44CC72A111A1100265BB1 /* Sprite2D.swift in Sources */,
 				EB691D122A103D7300975AC1 /* AppDelegate.swift in Sources */,
 				EB691D142A103D7300975AC1 /* SceneDelegate.swift in Sources */,
 				0DB44CD02A111AB800265BB1 /* MetalViewController.swift in Sources */,

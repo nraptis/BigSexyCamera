@@ -37,6 +37,11 @@ class MetalPipeline {
     static let spriteNodeIndexedFragmentIndexSampler = 1
     static let spriteNodeIndexedFragmentIndexUniforms = 2
     
+    static let spriteNodeYCBCRIndexedFragmentIndexTextureY = 0
+    static let spriteNodeYCBCRIndexedFragmentIndexTextureCBCR = 1
+    static let spriteNodeYCBCRIndexedFragmentIndexSampler = 2
+    static let spriteNodeYCBCRIndexedFragmentIndexUniforms = 3
+    
     private let engine: MetalEngine
     private let library: MTLLibrary
     private let layer: CAMetalLayer
@@ -47,8 +52,6 @@ class MetalPipeline {
         layer = engine.layer
         device = engine.device
     }
-    
-    private var YCBCRToRGBAFunction: MTLFunction!
     
     private var shape2DVertexProgram: MTLFunction!
     private var shape2DFragmentProgram: MTLFunction!
@@ -77,13 +80,18 @@ class MetalPipeline {
     private var spriteNodeIndexed2DFragmentProgram: MTLFunction!
     private var spriteNodeIndexed3DVertexProgram: MTLFunction!
     private var spriteNodeIndexed3DFragmentProgram: MTLFunction!
+    private var spriteNodeIndexed3DYCBCRFragmentProgram: MTLFunction!
+    
     
     private var spriteNodeColoredIndexed2DVertexProgram: MTLFunction!
     private var spriteNodeColoredIndexed2DFragmentProgram: MTLFunction!
+    private var spriteNodeColoredIndexed2DYCBCRFragmentProgram: MTLFunction!
+    
     private var spriteNodeColoredIndexed3DVertexProgram: MTLFunction!
     private var spriteNodeColoredIndexed3DFragmentProgram: MTLFunction!
+    private var spriteNodeColoredIndexed3DYCBCRFragmentProgram: MTLFunction!
     
-    private(set) var pipelineStateYCBCRToRGBA: MTLComputePipelineState!
+    
     
     private(set) var pipelineStateShape2DNoBlending: MTLRenderPipelineState!
     private(set) var pipelineStateShape2DAlphaBlending: MTLRenderPipelineState!
@@ -142,19 +150,42 @@ class MetalPipeline {
     private(set) var pipelineStateSpriteNodeIndexed3DAdditiveBlending: MTLRenderPipelineState!
     private(set) var pipelineStateSpriteNodeIndexed3DPremultipliedBlending: MTLRenderPipelineState!
     
+    private(set) var pipelineStateSpriteNodeIndexed3DYCBCRNoBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeIndexed3DYCBCRAlphaBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeIndexed3DYCBCRAdditiveBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeIndexed3DYCBCRPremultipliedBlending: MTLRenderPipelineState!
+    
+    
+    
     private(set) var pipelineStateSpriteNodeColoredIndexed2DNoBlending: MTLRenderPipelineState!
     private(set) var pipelineStateSpriteNodeColoredIndexed2DAlphaBlending: MTLRenderPipelineState!
     private(set) var pipelineStateSpriteNodeColoredIndexed2DAdditiveBlending: MTLRenderPipelineState!
     private(set) var pipelineStateSpriteNodeColoredIndexed2DPremultipliedBlending: MTLRenderPipelineState!
+    
+    private(set) var pipelineStateSpriteNodeColoredIndexed2DYCBCRNoBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeColoredIndexed2DYCBCRAlphaBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeColoredIndexed2DYCBCRAdditiveBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeColoredIndexed2DYCBCRPremultipliedBlending: MTLRenderPipelineState!
+    
     private(set) var pipelineStateSpriteNodeColoredIndexed3DNoBlending: MTLRenderPipelineState!
     private(set) var pipelineStateSpriteNodeColoredIndexed3DAlphaBlending: MTLRenderPipelineState!
     private(set) var pipelineStateSpriteNodeColoredIndexed3DAdditiveBlending: MTLRenderPipelineState!
     private(set) var pipelineStateSpriteNodeColoredIndexed3DPremultipliedBlending: MTLRenderPipelineState!
     
+    
+    private(set) var pipelineStateSpriteNodeColoredIndexed3DYCBCRNoBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeColoredIndexed3DYCBCRAlphaBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeColoredIndexed3DYCBCRAdditiveBlending: MTLRenderPipelineState!
+    private(set) var pipelineStateSpriteNodeColoredIndexed3DYCBCRPremultipliedBlending: MTLRenderPipelineState!
+    
+    
+    
+   
+
+    
+    
     func load() {
         buildFunctions()
-        
-        buildPipelineStatesYCBCRToRGBA()
         
         buildPipelineStatesShape2D()
         buildPipelineStatesShape3D()
@@ -172,16 +203,15 @@ class MetalPipeline {
 
         buildPipelineStatesSpriteNodeIndexed2D()
         buildPipelineStatesSpriteNodeIndexed3D()
+        buildPipelineStatesSpriteNodeIndexed3DYCBCR()
         
         buildPipelineStatesSpriteNodeColoredIndexed2D()
+        buildPipelineStatesSpriteNodeColoredIndexed2DYCBCR()
         buildPipelineStatesSpriteNodeColoredIndexed3D()
+        buildPipelineStatesSpriteNodeColoredIndexed3DYCBCR()
     }
     
     private func buildFunctions() {
-        
-        
-        
-        YCBCRToRGBAFunction = library.makeFunction(name: "convertYCbCrToRGBA")
         
         shape2DVertexProgram = library.makeFunction(name: "shape_2d_vertex")
         shape2DFragmentProgram = library.makeFunction(name: "shape_2d_fragment")
@@ -210,21 +240,22 @@ class MetalPipeline {
         spriteNodeIndexed2DFragmentProgram = library.makeFunction(name: "sprite_node_indexed_2d_fragment")
         spriteNodeIndexed3DVertexProgram = library.makeFunction(name: "sprite_node_indexed_3d_vertex")!
         spriteNodeIndexed3DFragmentProgram = library.makeFunction(name: "sprite_node_indexed_3d_fragment")!
+        spriteNodeIndexed3DYCBCRFragmentProgram = library.makeFunction(name: "sprite_node_indexed_3d_ycbcr_fragment")!
+        
+        
         
         spriteNodeColoredIndexed2DVertexProgram = library.makeFunction(name: "sprite_node_colored_indexed_2d_vertex")
         spriteNodeColoredIndexed2DFragmentProgram = library.makeFunction(name: "sprite_node_colored_indexed_2d_fragment")
+        spriteNodeColoredIndexed2DYCBCRFragmentProgram = library.makeFunction(name: "sprite_node_colored_indexed_2d_ycbcr_fragment")
+        
+        
         spriteNodeColoredIndexed3DVertexProgram = library.makeFunction(name: "sprite_node_colored_indexed_3d_vertex")
         spriteNodeColoredIndexed3DFragmentProgram = library.makeFunction(name: "sprite_node_colored_indexed_3d_fragment")
+        
+        spriteNodeColoredIndexed3DYCBCRFragmentProgram = library.makeFunction(name: "sprite_node_colored_indexed_3d_ycbcr_fragment")
+        
+        
     }
-    
-    private func buildPipelineStatesYCBCRToRGBA() {
-        if let YCBCRToRGBAFunction = YCBCRToRGBAFunction {
-            pipelineStateYCBCRToRGBA = try? device.makeComputePipelineState(function: YCBCRToRGBAFunction)
-            print("pipelineStateYCBCRToRGBA = \(pipelineStateYCBCRToRGBA)")
-        }
-    }
-    
-    
     
     private func buildPipelineStatesShape2D() {
         let vertexDescriptor = MTLVertexDescriptor()
@@ -397,7 +428,7 @@ class MetalPipeline {
         pipelineDescriptor.fragmentFunction = sprite2DYCBCRFragmentProgram
         pipelineDescriptor.vertexDescriptor = vertexDescriptor
         pipelineDescriptor.colorAttachments[0].pixelFormat = layer.pixelFormat
-        pipelineDescriptor.rasterSampleCount = 1
+        pipelineDescriptor.rasterSampleCount = 4
         pipelineStateSprite2DYCBCRNoBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
         
         configAlphaBlending(pipelineDescriptor: pipelineDescriptor)
@@ -500,6 +531,24 @@ class MetalPipeline {
         pipelineStateSpriteNodeIndexed3DPremultipliedBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
     }
     
+    private func buildPipelineStatesSpriteNodeIndexed3DYCBCR() {
+        let pipelineDescriptor = MTLRenderPipelineDescriptor()
+        pipelineDescriptor.vertexFunction = spriteNodeIndexed3DVertexProgram;
+        pipelineDescriptor.fragmentFunction = spriteNodeIndexed3DYCBCRFragmentProgram
+        pipelineDescriptor.colorAttachments[0].pixelFormat = layer.pixelFormat
+        pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
+        pipelineStateSpriteNodeIndexed3DYCBCRNoBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        
+        configAlphaBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeIndexed3DYCBCRAlphaBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        
+        configAdditiveBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeIndexed3DYCBCRAdditiveBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        
+        configPremultipliedBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeIndexed3DYCBCRPremultipliedBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+    }
+    
     private func buildPipelineStatesSpriteNodeColoredIndexed2D() {
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         pipelineDescriptor.vertexFunction = spriteNodeColoredIndexed2DVertexProgram;
@@ -518,6 +567,24 @@ class MetalPipeline {
         pipelineStateSpriteNodeColoredIndexed2DPremultipliedBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
     }
     
+    private func buildPipelineStatesSpriteNodeColoredIndexed2DYCBCR() {
+        let pipelineDescriptor = MTLRenderPipelineDescriptor()
+        pipelineDescriptor.vertexFunction = spriteNodeColoredIndexed2DVertexProgram;
+        pipelineDescriptor.fragmentFunction = spriteNodeColoredIndexed2DYCBCRFragmentProgram
+        pipelineDescriptor.colorAttachments[0].pixelFormat = layer.pixelFormat
+        pipelineDescriptor.rasterSampleCount = 4
+        pipelineStateSpriteNodeColoredIndexed2DYCBCRNoBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        
+        configAlphaBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeColoredIndexed2DYCBCRAlphaBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+
+        configAdditiveBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeColoredIndexed2DYCBCRAdditiveBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+
+        configPremultipliedBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeColoredIndexed2DYCBCRPremultipliedBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+    }
+    
     private func buildPipelineStatesSpriteNodeColoredIndexed3D() {
         let pipelineDescriptor = MTLRenderPipelineDescriptor()
         pipelineDescriptor.vertexFunction = spriteNodeColoredIndexed3DVertexProgram;
@@ -534,6 +601,25 @@ class MetalPipeline {
         
         configPremultipliedBlending(pipelineDescriptor: pipelineDescriptor)
         pipelineStateSpriteNodeColoredIndexed3DPremultipliedBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+    }
+    
+    
+    private func buildPipelineStatesSpriteNodeColoredIndexed3DYCBCR() {
+        let pipelineDescriptor = MTLRenderPipelineDescriptor()
+        pipelineDescriptor.vertexFunction = spriteNodeColoredIndexed3DVertexProgram;
+        pipelineDescriptor.fragmentFunction = spriteNodeColoredIndexed3DYCBCRFragmentProgram
+        pipelineDescriptor.colorAttachments[0].pixelFormat = layer.pixelFormat
+        pipelineDescriptor.depthAttachmentPixelFormat = .depth32Float
+        pipelineStateSpriteNodeColoredIndexed3DYCBCRNoBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        
+        configAlphaBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeColoredIndexed3DYCBCRAlphaBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        
+        configAdditiveBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeColoredIndexed3DYCBCRAdditiveBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
+        
+        configPremultipliedBlending(pipelineDescriptor: pipelineDescriptor)
+        pipelineStateSpriteNodeColoredIndexed3DYCBCRPremultipliedBlending = try? device.makeRenderPipelineState(descriptor: pipelineDescriptor)
     }
     
     private func configAlphaBlending(pipelineDescriptor: MTLRenderPipelineDescriptor) {
