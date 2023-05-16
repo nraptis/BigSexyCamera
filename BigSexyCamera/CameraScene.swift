@@ -67,10 +67,28 @@ class CameraScene: GraphicsDelegate {
         return result
     }()
     
+    lazy var tileVideoY: VideoTile3D = {
+        VideoTile3D(graphics: graphics)
+    }()
+    
+    lazy var tileVideoCBCR: VideoTile3D = {
+        VideoTile3D(graphics: graphics)
+    }()
+    
+    lazy var tileVideoLidarDepth: VideoTile3D = {
+        VideoTile3D(graphics: graphics)
+    }()
+    
+    lazy var tileVideoLidarConfidence: VideoTile3D = {
+        VideoTile3D(graphics: graphics)
+    }()
     
     var textureCache: CVMetalTextureCache?
     
     var lidarDepthTexture: MTLTexture?
+    var lidarConfidenceTexture: MTLTexture?
+    
+    
     var lidarDepth3DUniformsVertex = UniformsSpriteNodeIndexedVertex()
     var lidarDepth3DUniformsVertexBuffer: MTLBuffer!
     var lidarDepth3DUniformsFragment = UniformsSpriteNodeIndexedFragment()
@@ -226,6 +244,25 @@ class CameraScene: GraphicsDelegate {
     func load() {
         
         CVMetalTextureCacheCreate(nil, nil, graphics.device, nil, &textureCache)
+        
+        
+        let widthLeft = Float(Int(graphics.width * 0.5 + 0.5))
+        let widthRight = Float(Int(graphics.width - Float(widthLeft) + 0.5))
+        
+        let heightTop = Float(Int(graphics.height * 0.5 + 0.5))
+        let heightBottom = Float(Int(graphics.height - Float(heightTop) + 0.5))
+        
+        tileVideoY.load()
+        tileVideoCBCR.load()
+        tileVideoLidarDepth.load()
+        tileVideoLidarConfidence.load()
+        
+        tileVideoLidarConfidence.uniformsFragment.red = 128.0
+        
+        tileVideoY.set(x: 0.0, y: 0.0, width: widthLeft, height: heightTop)
+        tileVideoCBCR.set(x: widthLeft, y: 0.0, width: widthRight, height: heightTop)
+        tileVideoLidarDepth.set(x: 0.0, y: heightTop, width: widthLeft, height: heightBottom)
+        tileVideoLidarConfidence.set(x: widthLeft, y: heightTop, width: widthRight, height: heightBottom)
         
         if true {
             
@@ -581,6 +618,10 @@ class CameraScene: GraphicsDelegate {
                                                 instanceCount: 1)
         }
         
+        tileVideoY.draw(renderEncoder: renderEncoder)
+        tileVideoCBCR.draw(renderEncoder: renderEncoder)
+        tileVideoLidarDepth.draw(renderEncoder: renderEncoder)
+        tileVideoLidarConfidence.draw(renderEncoder: renderEncoder)
     }
     
     func draw2D(renderEncoder: MTLRenderCommandEncoder) {
@@ -850,6 +891,16 @@ extension CameraScene: AugmentedRealityCameraInputProviderReceiving {
             lidarDepthTexture = generateMetalTexture(pixelBuffer: pixelBuffer,
                                                       pixelFormat: .r32Float,
                                                       planeIndex: 0)
+            
+            tileVideoLidarDepth.set(texture: lidarDepthTexture)
+            
+        }
+        
+        if let pixelBuffer = data.sceneDepthConfidencePixelBuffer {
+            lidarConfidenceTexture = generateMetalTexture(pixelBuffer: pixelBuffer,
+                                                          pixelFormat: .r8Unorm,
+                                                          planeIndex: 0)
+            tileVideoLidarConfidence.set(texture: lidarConfidenceTexture)
         }
         
         if videoTextureDidAttemptCreate == false, let pixelBuffer = data.capturedImagePixelBuffer {
@@ -876,9 +927,9 @@ extension CameraScene: AugmentedRealityCameraInputProviderReceiving {
                                                         pixelFormat: .rg8Unorm,
                                                         planeIndex: 1)
                 
-                //print("videoTextureY = \(videoTextureY)")
-                //print("videoTextureCBCR = \(videoTextureCBCR)")
                 
+                tileVideoY.set(texture: videoTextureY)
+                tileVideoCBCR.set(texture: videoTextureCBCR)
             }
         }
         
