@@ -32,10 +32,6 @@
 		0DB44CF12A111B3600265BB1 /* ShapeNodeIndexed.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CE22A111B3500265BB1 /* ShapeNodeIndexed.metal */; };
 		0DB44CF22A111B3600265BB1 /* SpriteNodeIndexed.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CE32A111B3500265BB1 /* SpriteNodeIndexed.metal */; };
 		0DB44CF32A111B3600265BB1 /* Sprite.metal in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CE42A111B3500265BB1 /* Sprite.metal */; };
-		0DB44CF82A111C0F00265BB1 /* Paddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CF52A111C0F00265BB1 /* Paddle.swift */; };
-		0DB44CF92A111C0F00265BB1 /* PongScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CF62A111C0F00265BB1 /* PongScene.swift */; };
-		0DB44CFA2A111C0F00265BB1 /* Ball.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CF72A111C0F00265BB1 /* Ball.swift */; };
-		0DB44CFC2A111F8100265BB1 /* icon_pony.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB44CFB2A111F8100265BB1 /* icon_pony.png */; };
 		0DB44CFE2A11324200265BB1 /* CameraScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CFD2A11324200265BB1 /* CameraScene.swift */; };
 		EB08DC392A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */; };
 		EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */; };
@@ -47,7 +43,6 @@
 		EB691D332A103D7400975AC1 /* BigSexyCameraUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D322A103D7400975AC1 /* BigSexyCameraUITests.swift */; };
 		EB691D352A103D7400975AC1 /* BigSexyCameraUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D342A103D7400975AC1 /* BigSexyCameraUITestsLaunchTests.swift */; };
 		EB691D422A103E0700975AC1 /* CameraTestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D412A103E0700975AC1 /* CameraTestViewController.swift */; };
-		EB691D442A103E2400975AC1 /* CameraReader_AV.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB691D432A103E2400975AC1 /* CameraReader_AV.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,10 +88,6 @@
 		0DB44CE22A111B3500265BB1 /* ShapeNodeIndexed.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = ShapeNodeIndexed.metal; sourceTree = "<group>"; };
 		0DB44CE32A111B3500265BB1 /* SpriteNodeIndexed.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = SpriteNodeIndexed.metal; sourceTree = "<group>"; };
 		0DB44CE42A111B3500265BB1 /* Sprite.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = Sprite.metal; sourceTree = "<group>"; };
-		0DB44CF52A111C0F00265BB1 /* Paddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Paddle.swift; sourceTree = "<group>"; };
-		0DB44CF62A111C0F00265BB1 /* PongScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PongScene.swift; sourceTree = "<group>"; };
-		0DB44CF72A111C0F00265BB1 /* Ball.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Ball.swift; sourceTree = "<group>"; };
-		0DB44CFB2A111F8100265BB1 /* icon_pony.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_pony.png; sourceTree = "<group>"; };
 		0DB44CFD2A11324200265BB1 /* CameraScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraScene.swift; sourceTree = "<group>"; };
 		EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AugmentedRealityCameraInputProvider.swift; sourceTree = "<group>"; };
 		EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Size+Aspect.swift"; sourceTree = "<group>"; };
@@ -112,7 +103,6 @@
 		EB691D322A103D7400975AC1 /* BigSexyCameraUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigSexyCameraUITests.swift; sourceTree = "<group>"; };
 		EB691D342A103D7400975AC1 /* BigSexyCameraUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BigSexyCameraUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EB691D412A103E0700975AC1 /* CameraTestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraTestViewController.swift; sourceTree = "<group>"; };
-		EB691D432A103E2400975AC1 /* CameraReader_AV.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraReader_AV.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -191,16 +181,6 @@
 			path = Shaders;
 			sourceTree = "<group>";
 		};
-		0DB44CF42A111C0F00265BB1 /* Pong */ = {
-			isa = PBXGroup;
-			children = (
-				0DB44CF52A111C0F00265BB1 /* Paddle.swift */,
-				0DB44CF62A111C0F00265BB1 /* PongScene.swift */,
-				0DB44CF72A111C0F00265BB1 /* Ball.swift */,
-			);
-			path = Pong;
-			sourceTree = "<group>";
-		};
 		EB691D052A103D7300975AC1 = {
 			isa = PBXGroup;
 			children = (
@@ -224,17 +204,14 @@
 		EB691D102A103D7300975AC1 /* BigSexyCamera */ = {
 			isa = PBXGroup;
 			children = (
-				0DB44CFB2A111F8100265BB1 /* icon_pony.png */,
 				0DB44CC82A111AB800265BB1 /* Metal */,
 				EB691D112A103D7300975AC1 /* AppDelegate.swift */,
 				EB691D132A103D7300975AC1 /* SceneDelegate.swift */,
-				0DB44CF42A111C0F00265BB1 /* Pong */,
 				EB691D1A2A103D7400975AC1 /* Assets.xcassets */,
 				EB691D1C2A103D7400975AC1 /* LaunchScreen.storyboard */,
 				EB691D1F2A103D7400975AC1 /* Info.plist */,
 				EB691D412A103E0700975AC1 /* CameraTestViewController.swift */,
 				EB08DC382A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift */,
-				EB691D432A103E2400975AC1 /* CameraReader_AV.swift */,
 				EB08DC3A2A1079C5008E8F6C /* Size+Aspect.swift */,
 				0DB44CC12A1119D200265BB1 /* Math.swift */,
 				0DB44CC02A1119D200265BB1 /* Matrix.swift */,
@@ -369,7 +346,6 @@
 			files = (
 				EB691D1E2A103D7400975AC1 /* LaunchScreen.storyboard in Resources */,
 				EB691D1B2A103D7400975AC1 /* Assets.xcassets in Resources */,
-				0DB44CFC2A111F8100265BB1 /* icon_pony.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -394,7 +370,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0DB44CFA2A111C0F00265BB1 /* Ball.swift in Sources */,
 				0DB44CF22A111B3600265BB1 /* SpriteNodeIndexed.metal in Sources */,
 				0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */,
 				0DB44CEF2A111B3600265BB1 /* Uniforms.swift in Sources */,
@@ -405,10 +380,8 @@
 				0DB44CE92A111B3600265BB1 /* RecyclerShapeQuad2D.swift in Sources */,
 				0DB44CE52A111B3600265BB1 /* Recycler.swift in Sources */,
 				0DB44CE82A111B3600265BB1 /* RecyclerShapeTriangle2D.swift in Sources */,
-				EB691D442A103E2400975AC1 /* CameraReader_AV.swift in Sources */,
 				0DB44CCF2A111AB800265BB1 /* MetalEngine.swift in Sources */,
 				0DB44CCE2A111AB800265BB1 /* MetalPipeline.swift in Sources */,
-				0DB44CF92A111C0F00265BB1 /* PongScene.swift in Sources */,
 				EB08DC392A105E66008E8F6C /* AugmentedRealityCameraInputProvider.swift in Sources */,
 				0DB44CEC2A111B3600265BB1 /* UniformsShape.swift in Sources */,
 				0DB44CF32A111B3600265BB1 /* Sprite.metal in Sources */,
@@ -418,7 +391,6 @@
 				EB691D422A103E0700975AC1 /* CameraTestViewController.swift in Sources */,
 				0DB44CF02A111B3600265BB1 /* Shape.metal in Sources */,
 				0DB44CCD2A111AB800265BB1 /* MetalView.swift in Sources */,
-				0DB44CF82A111C0F00265BB1 /* Paddle.swift in Sources */,
 				0D84B2082A119AF7000D0D93 /* Quaternion.swift in Sources */,
 				0DB44CE72A111B3600265BB1 /* RecyclerShapeQuad3D.swift in Sources */,
 				0DB44CED2A111B3600265BB1 /* UniformsSprite.swift in Sources */,

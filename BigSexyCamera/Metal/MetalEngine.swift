@@ -58,12 +58,6 @@ class MetalEngine {
         layer.device = device
         layer.contentsScale = scale
         layer.frame = CGRect(x: 0.0, y: 0.0, width: CGFloat(graphics.width), height: CGFloat(graphics.height))
-        
-        print("awake layer size \(layer.frame.width) x \(layer.frame.height)")
-        print("awake layer scale \(scale)")
-        
-        
-        
     }
     
     func load() {
@@ -83,11 +77,29 @@ class MetalEngine {
         tileUniformFragmentBuffer = graphics.buffer(uniform: tileUniformFragment)
     }
     
+    
+    var isMasterTaskRunning = false
+    var isSlaveTaskRunning = false
+    
     func draw() {
         
-        guard let drawable = layer.nextDrawable() else { return }
-        guard let commandBuffer = commandQueue.makeCommandBuffer() else { return }
+        isMasterTaskRunning = true
         
+        guard let drawable = layer.nextDrawable() else {
+            isMasterTaskRunning = false
+            return
+        }
+        guard let commandBuffer = commandQueue.makeCommandBuffer() else {
+            isMasterTaskRunning = false
+            return
+        }
+        
+        var slaveTick = 0
+        while isSlaveTaskRunning {
+            slaveTick += 1
+            usleep(100_000)
+            print("slaveTick: \(slaveTick)")
+        }
         
         let renderPassDescriptor3D = MTLRenderPassDescriptor()
         renderPassDescriptor3D.colorAttachments[0].texture = storageTexture
@@ -102,9 +114,6 @@ class MetalEngine {
             delegate.draw3D(renderEncoder: renderEncoder3D)
             renderEncoder3D.endEncoding()
         }
-        
-        
-        
         
         let renderPassDescriptor2D = MTLRenderPassDescriptor()
         renderPassDescriptor2D.colorAttachments[0].texture = antialiasingTexture
@@ -122,6 +131,10 @@ class MetalEngine {
         
         commandBuffer.present(drawable)
         commandBuffer.commit()
+        
+        //TODO: Nix
+        
+        isMasterTaskRunning = false
     }
     
     func drawTile(renderEncoder: MTLRenderCommandEncoder) {

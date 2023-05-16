@@ -10,16 +10,13 @@ import ARKit
 import CoreGraphics
 
 protocol AugmentedRealityCameraInputProviderReceiving: AnyObject {
-    func receive(image: UIImage)
     func provider(didReceive data: AugmentedRealityCameraInputProviderData)
 }
 
 struct AugmentedRealityCameraInputProviderData {
     let capturedImagePixelBuffer: CVPixelBuffer?
-    
     let smoothedSceneDepthPixelBuffer: CVPixelBuffer?
     let smoothedSceneDepthConfidencePixelBuffer: CVPixelBuffer?
-    
     let sceneDepthPixelBuffer: CVPixelBuffer?
     let sceneDepthConfidencePixelBuffer: CVPixelBuffer?
 }

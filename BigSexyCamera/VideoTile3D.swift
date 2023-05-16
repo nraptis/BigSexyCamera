@@ -38,7 +38,6 @@ class VideoTile3D {
     var uniformsFragment = UniformsSpriteNodeIndexedFragment()
     private(set) var uniformsFragmentBuffer: MTLBuffer!
     
-    
     var vertexData: [Sprite3DNode] = [
         Sprite3DNode(x: -256.0, y: -256.0, z: 0.0, u: 0.0, v: 0.0),
         Sprite3DNode(x: 256.0, y: -256.0, z: 0.0, u: 1.0, v: 0.0),
@@ -48,7 +47,6 @@ class VideoTile3D {
     
     var indices: [UInt16] = [0, 1, 2, 3]
     var indexBuffer: MTLBuffer!
-    
     
     required init(graphics: Graphics) {
         self.graphics = graphics
@@ -63,35 +61,166 @@ class VideoTile3D {
     }
     
     func set(x: Float, y: Float, width: Float, height: Float) {
-        self.frameLeft = x
-        self.frameRight = x + width
-        self.frameTop = y
-        self.frameBottom = y + height
-        self.frameWidth = width
-        self.frameHeight = height
         
-        vertexData[0].x = self.frameLeft
-        vertexData[0].y = self.frameTop
-        
-        vertexData[1].x = self.frameRight
-        vertexData[1].y = self.frameTop
-        
-        vertexData[2].x = self.frameLeft
-        vertexData[2].y = self.frameBottom
-        
-        vertexData[3].x = self.frameRight
-        vertexData[3].y = self.frameBottom
+        if frameLeft != x || frameWidth != width || frameTop != y || frameHeight != height {
+            
+            self.frameLeft = x
+            self.frameRight = x + width
+            self.frameTop = y
+            self.frameBottom = y + height
+            self.frameWidth = width
+            self.frameHeight = height
+            
+            fit()
+        }
     }
     
     func set(texture: MTLTexture?) {
         self.texture = texture
         if let texture = texture {
-            self.textureWidth = texture.width
-            self.textureHeight = texture.height
+            if textureWidth != texture.width || textureHeight != texture.height {
+                textureWidth = texture.width
+                textureHeight = texture.height
+                fit()
+            }
         } else {
-            self.textureWidth = 0
-            self.textureHeight = 0
+            if 0 != self.textureWidth || 0 != self.textureHeight {
+                textureWidth = 0
+                textureHeight = 0
+                fit()
+            }
         }
+    }
+    
+    private func fit() {
+        
+        print("fitting with tex: \(textureWidth), frame: \(frameLeft)")
+        
+        vertexData[0].x = self.frameLeft
+        vertexData[0].y = self.frameTop
+        vertexData[1].x = self.frameRight
+        vertexData[1].y = self.frameTop
+        vertexData[2].x = self.frameLeft
+        vertexData[2].y = self.frameBottom
+        vertexData[3].x = self.frameRight
+        vertexData[3].y = self.frameBottom
+        
+        guard frameWidth > 8.0 else { return }
+        guard frameHeight > 8.0 else { return }
+        
+        var _textureWidth = Float(textureWidth)
+        var _textureHeight = Float(textureHeight)
+        
+        guard _textureWidth > 8.0 else { return }
+        guard _textureHeight > 8.0 else { return }
+        
+        swap(&_textureWidth, &_textureHeight)
+        
+        let fitScale: Float
+        let fitWidth: Float
+        let fitHeight: Float
+        let fitMode: Bool
+        if (_textureWidth / _textureHeight) < (frameWidth / frameHeight) {
+            fitScale = frameWidth / _textureWidth
+            fitWidth = frameWidth
+            fitHeight = fitScale * _textureHeight
+            fitMode = true
+        } else {
+            fitScale = frameHeight / _textureHeight
+            fitWidth = fitScale * _textureWidth
+            fitHeight = frameHeight
+            fitMode = false
+        }
+        
+        var centerX = frameLeft + frameWidth * 0.5
+        var centerY = frameTop + frameHeight * 0.5
+        
+        let left = centerX - fitWidth * 0.5
+        let right = centerX + fitWidth * 0.5
+        
+        let top = centerY - fitHeight * 0.5
+        let bottom = centerY + fitHeight * 0.5
+        
+        /*
+        vertexData[0].x = left
+        vertexData[0].y = top
+        vertexData[1].x = right
+        vertexData[1].y = top
+        vertexData[2].x = left
+        vertexData[2].y = bottom
+        vertexData[3].x = right
+        vertexData[3].y = bottom
+        */
+        
+        var startU = Float(0.0)
+        var startV = Float(0.0)
+        var endU = Float(1.0)
+        var endV = Float(1.0)
+        
+        if fitMode {
+            print("height \(fitHeight) vs \(frameHeight)")
+            if fitHeight > frameHeight {
+                
+                var center = fitHeight / 2.0
+                var top = center - (frameHeight * 0.5)
+                var bottom = center + (frameHeight * 0.5)
+                
+                startV = top / fitHeight
+                endV = bottom / fitHeight
+                
+            }
+        } else {
+            print("width \(fitWidth) vs \(frameWidth)")
+            
+            var center = fitWidth / 2.0
+            var left = center - (frameWidth * 0.5)
+            var right = center + (frameWidth * 0.5)
+            
+            startU = left / fitWidth
+            endU = right / fitWidth
+        }
+        
+        print("su: \(startU) eu: \(endU) sv: \(startV) ev: \(endV)")
+        
+        if false {
+            vertexData[0].u = startU
+            vertexData[0].v = startV
+            vertexData[1].u = endU
+            vertexData[1].v = startV
+            vertexData[2].u = startU
+            vertexData[2].v = endV
+            vertexData[3].u = endU
+            vertexData[3].v = endV
+        } else {
+            vertexData[0].u = startU
+            vertexData[0].v = endV
+            vertexData[1].u = startU
+            vertexData[1].v = startV
+            vertexData[2].u = endU
+            vertexData[2].v = endV
+            vertexData[3].u = endU
+            vertexData[3].v = startV
+        }
+        //vertexData[0].
+        
+        // [0, 0]  [1, 0]
+        // [0, 1]  [1, 1]
+        
+        // [0, 1], [0, 0]
+        // [1, 1], [1, 0]
+        /*
+        
+        */
+        
+        //swap(&textureWidth, &textureHeight)
+        
+        
+        
+        
+        //var uvTopLeft = SIMD2<Float>(
+        
+        
+        
     }
     
     func draw(renderEncoder: MTLRenderCommandEncoder) {
