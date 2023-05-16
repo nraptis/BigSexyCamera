@@ -70,6 +70,22 @@ class CameraScene: GraphicsDelegate {
     
     var textureCache: CVMetalTextureCache?
     
+    var lidarDepthTexture: MTLTexture?
+    var lidarDepth3DUniformsVertex = UniformsSpriteNodeIndexedVertex()
+    var lidarDepth3DUniformsVertexBuffer: MTLBuffer!
+    var lidarDepth3DUniformsFragment = UniformsSpriteNodeIndexedFragment()
+    var lidarDepth3DUniformsFragmentBuffer: MTLBuffer!
+    var lidarDepth3DData: [SpriteColored3DNode] = [
+        SpriteColored3DNode(x: -256.0, y: -256.0, z: 0.0, u: 0.0, v: 0.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0),
+        SpriteColored3DNode(x: 256.0, y: -256.0, z: 0.0, u: 1.0, v: 0.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0),
+        SpriteColored3DNode(x: -256.0, y: 256.0, z: 0.0, u: 0.0, v: 1.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0),
+        SpriteColored3DNode(x: 256.0, y: 256.0, z: 0.0, u: 1.0, v: 1.0, r: 1.0, g: 1.0, b: 1.0, a: 1.0)]
+    var lidarDepth3DDataBuffer: MTLBuffer!
+    var lidarDepth3DIndices: [UInt16] = [0, 1, 2, 3]
+    var lidarDepth3DIndexBuffer: MTLBuffer!
+    
+    
+    
     var videoTextureDidAttemptCreate = false
     var videoTextureY: MTLTexture?
     var videoTextureCBCR: MTLTexture?
@@ -120,6 +136,10 @@ class CameraScene: GraphicsDelegate {
     var videoNodeColored3DDataBuffer: MTLBuffer!
     var videoNodeColored3DIndices: [UInt16] = [0, 1, 2, 3]
     var videoNodeColored3DIndexBuffer: MTLBuffer!
+    
+    
+    
+    
     
     var videoNodeColored2DUniformsVertex = UniformsSpriteNodeIndexedVertex()
     var videoNodeColored2DUniformsVertexBuffer: MTLBuffer!
@@ -292,6 +312,16 @@ class CameraScene: GraphicsDelegate {
             videoNodeColored2DIndexBuffer = graphics.buffer(array: videoNodeColored2DIndices)
         }
         
+        if true {
+            lidarDepth3DUniformsVertexBuffer = graphics.buffer(uniform: lidarDepth3DUniformsVertex)
+            lidarDepth3DUniformsFragmentBuffer = graphics.buffer(uniform: lidarDepth3DUniformsFragment)
+            
+            lidarDepth3DDataBuffer = graphics.buffer(array: lidarDepth3DData)
+            lidarDepth3DIndexBuffer = graphics.buffer(array: lidarDepth3DIndices)
+        }
+        
+ 
+        
         pony2DTexture = graphics.loadTexture(fileName: "icon_pony.png")
         if let pony2DTexture = pony2DTexture {
             print("pony2DTexture size \(pony2DTexture.width) x \(pony2DTexture.height)")
@@ -391,6 +421,7 @@ class CameraScene: GraphicsDelegate {
         }
         */
         
+        /*
         if let videoTextureY = videoTextureY, let videoTextureCBCR = videoTextureCBCR {
 
             video3DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
@@ -510,10 +541,51 @@ class CameraScene: GraphicsDelegate {
                                                 instanceCount: 1)
         }
         
+        
+        */
+
+        
+        if let lidarDepthTexture = lidarDepthTexture {
+            
+            lidarDepth3DUniformsVertex.projectionMatrix.ortho(width: graphics.width,
+                                                        height: graphics.height)
+            
+            var modelView = matrix_identity_float4x4
+            modelView.translate(x: graphics.width * 0.5, y: graphics.height * 0.5, z: 0.0)
+            lidarDepth3DUniformsVertex.modelViewMatrix = modelView
+            
+            graphics.write(buffer: lidarDepth3DUniformsVertexBuffer, uniform: lidarDepth3DUniformsVertex)
+            graphics.write(buffer: lidarDepth3DUniformsFragmentBuffer, uniform: lidarDepth3DUniformsFragment)
+            
+            graphics.set(pipelineState: .spriteNodeColoredIndexed3DAlphaBlending,
+                         renderEncoder: renderEncoder)
+            
+            graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
+            
+            
+            graphics.setVertexUniformsBuffer(lidarDepth3DUniformsVertexBuffer,
+                                             renderEncoder: renderEncoder)
+            graphics.setVertexDataBuffer(lidarDepth3DDataBuffer,
+                                              renderEncoder: renderEncoder)
+            
+            graphics.setFragmentTexture(lidarDepthTexture,
+                                         renderEncoder: renderEncoder)
+            graphics.setFragmentUniformsBuffer(lidarDepth3DUniformsFragmentBuffer,
+                                               renderEncoder: renderEncoder)
+            
+            renderEncoder.drawIndexedPrimitives(type: .triangleStrip,
+                                                indexCount: lidarDepth3DIndices.count,
+                                                indexType: .uint16,
+                                                indexBuffer: lidarDepth3DIndexBuffer,
+                                                indexBufferOffset: 0,
+                                                instanceCount: 1)
+        }
+        
     }
     
     func draw2D(renderEncoder: MTLRenderCommandEncoder) {
         
+        return
         
         if let pony2DTexture = pony2DTexture {
             
@@ -773,6 +845,12 @@ class CameraScene: GraphicsDelegate {
 extension CameraScene: AugmentedRealityCameraInputProviderReceiving {
     
     func provider(didReceive data: AugmentedRealityCameraInputProviderData) {
+        
+        if let pixelBuffer = data.sceneDepthPixelBuffer {
+            lidarDepthTexture = generateMetalTexture(pixelBuffer: pixelBuffer,
+                                                      pixelFormat: .r32Float,
+                                                      planeIndex: 0)
+        }
         
         if videoTextureDidAttemptCreate == false, let pixelBuffer = data.capturedImagePixelBuffer {
             //videoTextureDidAttemptCreate = true

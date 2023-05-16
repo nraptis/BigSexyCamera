@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D4685372A131F110062FD4F /* VideoTile3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4685362A131F110062FD4F /* VideoTile3D.swift */; };
 		0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2052A119ADD000D0D93 /* Sprite2D.swift */; };
 		0D84B2082A119AF7000D0D93 /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2072A119AF7000D0D93 /* Quaternion.swift */; };
 		0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC02A1119D200265BB1 /* Matrix.swift */; };
@@ -67,6 +68,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D4685362A131F110062FD4F /* VideoTile3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTile3D.swift; sourceTree = "<group>"; };
 		0D84B2052A119ADD000D0D93 /* Sprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite2D.swift; sourceTree = "<group>"; };
 		0D84B2072A119AF7000D0D93 /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quaternion.swift; sourceTree = "<group>"; };
 		0DB44CC02A1119D200265BB1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				0D84B2072A119AF7000D0D93 /* Quaternion.swift */,
 				0DB44CFD2A11324200265BB1 /* CameraScene.swift */,
 				0D84B2052A119ADD000D0D93 /* Sprite2D.swift */,
+				0D4685362A131F110062FD4F /* VideoTile3D.swift */,
 			);
 			path = BigSexyCamera;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				0DB44CEF2A111B3600265BB1 /* Uniforms.swift in Sources */,
 				0DB44CF12A111B3600265BB1 /* ShapeNodeIndexed.metal in Sources */,
 				0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */,
+				0D4685372A131F110062FD4F /* VideoTile3D.swift in Sources */,
 				0DB44CE62A111B3600265BB1 /* RecyclerSprite2D.swift in Sources */,
 				0DB44CE92A111B3600265BB1 /* RecyclerShapeQuad2D.swift in Sources */,
 				0DB44CE52A111B3600265BB1 /* Recycler.swift in Sources */,
