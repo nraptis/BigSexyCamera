@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0D15BE932A14178B003A92C2 /* CameraInputProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D15BE922A14178B003A92C2 /* CameraInputProvider.swift */; };
+		0D15BE952A1417D5003A92C2 /* CaptureScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D15BE942A1417D5003A92C2 /* CaptureScene.swift */; };
 		0D4685372A131F110062FD4F /* VideoTile3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4685362A131F110062FD4F /* VideoTile3D.swift */; };
 		0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2052A119ADD000D0D93 /* Sprite2D.swift */; };
 		0D84B2082A119AF7000D0D93 /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2072A119AF7000D0D93 /* Quaternion.swift */; };
+		0D86BE5C2A15406100339686 /* OversizedFrameFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D86BE5B2A15406100339686 /* OversizedFrameFixer.swift */; };
+		0D86BE862A1558CA00339686 /* VideoTile3DYCBCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D86BE852A1558CA00339686 /* VideoTile3DYCBCR.swift */; };
 		0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC02A1119D200265BB1 /* Matrix.swift */; };
 		0DB44CC32A1119D200265BB1 /* Math.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC12A1119D200265BB1 /* Math.swift */; };
 		0DB44CCD2A111AB800265BB1 /* MetalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CC92A111AB800265BB1 /* MetalView.swift */; };
@@ -63,9 +67,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0D15BE922A14178B003A92C2 /* CameraInputProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraInputProvider.swift; path = ../../CameraInputProvider.swift; sourceTree = "<group>"; };
+		0D15BE942A1417D5003A92C2 /* CaptureScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureScene.swift; sourceTree = "<group>"; };
 		0D4685362A131F110062FD4F /* VideoTile3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTile3D.swift; sourceTree = "<group>"; };
 		0D84B2052A119ADD000D0D93 /* Sprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite2D.swift; sourceTree = "<group>"; };
 		0D84B2072A119AF7000D0D93 /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quaternion.swift; sourceTree = "<group>"; };
+		0D86BE5B2A15406100339686 /* OversizedFrameFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OversizedFrameFixer.swift; sourceTree = "<group>"; };
+		0D86BE852A1558CA00339686 /* VideoTile3DYCBCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTile3DYCBCR.swift; sourceTree = "<group>"; };
 		0DB44CC02A1119D200265BB1 /* Matrix.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Matrix.swift; sourceTree = "<group>"; };
 		0DB44CC12A1119D200265BB1 /* Math.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Math.swift; sourceTree = "<group>"; };
 		0DB44CC92A111AB800265BB1 /* MetalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalView.swift; sourceTree = "<group>"; };
@@ -219,6 +227,10 @@
 				0DB44CFD2A11324200265BB1 /* CameraScene.swift */,
 				0D84B2052A119ADD000D0D93 /* Sprite2D.swift */,
 				0D4685362A131F110062FD4F /* VideoTile3D.swift */,
+				0D86BE852A1558CA00339686 /* VideoTile3DYCBCR.swift */,
+				0D15BE922A14178B003A92C2 /* CameraInputProvider.swift */,
+				0D15BE942A1417D5003A92C2 /* CaptureScene.swift */,
+				0D86BE5B2A15406100339686 /* OversizedFrameFixer.swift */,
 			);
 			path = BigSexyCamera;
 			sourceTree = "<group>";
@@ -372,6 +384,8 @@
 			files = (
 				0DB44CF22A111B3600265BB1 /* SpriteNodeIndexed.metal in Sources */,
 				0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */,
+				0D15BE952A1417D5003A92C2 /* CaptureScene.swift in Sources */,
+				0D15BE932A14178B003A92C2 /* CameraInputProvider.swift in Sources */,
 				0DB44CEF2A111B3600265BB1 /* Uniforms.swift in Sources */,
 				0DB44CF12A111B3600265BB1 /* ShapeNodeIndexed.metal in Sources */,
 				0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */,
@@ -386,6 +400,7 @@
 				0DB44CEC2A111B3600265BB1 /* UniformsShape.swift in Sources */,
 				0DB44CF32A111B3600265BB1 /* Sprite.metal in Sources */,
 				0DB44CD22A111AEC00265BB1 /* Graphics.swift in Sources */,
+				0D86BE862A1558CA00339686 /* VideoTile3DYCBCR.swift in Sources */,
 				EB08DC3B2A1079C5008E8F6C /* Size+Aspect.swift in Sources */,
 				0DB44CEB2A111B3600265BB1 /* UniformsShapeNodeIndexed.swift in Sources */,
 				EB691D422A103E0700975AC1 /* CameraTestViewController.swift in Sources */,
@@ -398,6 +413,7 @@
 				EB691D142A103D7300975AC1 /* SceneDelegate.swift in Sources */,
 				0DB44CD02A111AB800265BB1 /* MetalViewController.swift in Sources */,
 				0DB44CEA2A111B3600265BB1 /* RecyclerShapeTriangle3D.swift in Sources */,
+				0D86BE5C2A15406100339686 /* OversizedFrameFixer.swift in Sources */,
 				0DB44CC32A1119D200265BB1 /* Math.swift in Sources */,
 				0DB44CEE2A111B3600265BB1 /* UniformsSpriteNodeIndexed.swift in Sources */,
 				0DB44CFE2A11324200265BB1 /* CameraScene.swift in Sources */,

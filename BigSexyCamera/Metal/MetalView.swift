@@ -54,8 +54,10 @@ class MetalView: UIView {
     }
     
     @objc func render() {
+        engine.semaphore.wait()
         delegate.update()
         engine.draw()
+        engine.semaphore.signal()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

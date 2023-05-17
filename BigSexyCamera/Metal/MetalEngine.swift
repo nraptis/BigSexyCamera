@@ -77,28 +77,21 @@ class MetalEngine {
         tileUniformFragmentBuffer = graphics.buffer(uniform: tileUniformFragment)
     }
     
-    
-    var isMasterTaskRunning = false
-    var isSlaveTaskRunning = false
+    let semaphore = DispatchSemaphore(value: 1)
     
     func draw() {
         
-        isMasterTaskRunning = true
+        /*
+        if Int.random(in: 0...10) == 5 {
+            Thread.sleep(forTimeInterval: 0.1)
+        }
+        */
         
         guard let drawable = layer.nextDrawable() else {
-            isMasterTaskRunning = false
             return
         }
         guard let commandBuffer = commandQueue.makeCommandBuffer() else {
-            isMasterTaskRunning = false
             return
-        }
-        
-        var slaveTick = 0
-        while isSlaveTaskRunning {
-            slaveTick += 1
-            usleep(100_000)
-            print("slaveTick: \(slaveTick)")
         }
         
         let renderPassDescriptor3D = MTLRenderPassDescriptor()
@@ -131,10 +124,6 @@ class MetalEngine {
         
         commandBuffer.present(drawable)
         commandBuffer.commit()
-        
-        //TODO: Nix
-        
-        isMasterTaskRunning = false
     }
     
     func drawTile(renderEncoder: MTLRenderCommandEncoder) {

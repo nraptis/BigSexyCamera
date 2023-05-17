@@ -1,15 +1,15 @@
 //
-//  VideoTile3D.swift
+//  VideoTile3DYCBCR.swift
 //  BigSexyCamera
 //
-//  Created by Tiger Nixon on 5/15/23.
+//  Created by Tiger Nixon on 5/17/23.
 //
 
 import Foundation
 import Metal
 import simd
 
-class VideoTile3D {
+class VideoTile3DYCBCR {
     
     struct Sprite3DNode {
         var x: Float
@@ -31,7 +31,8 @@ class VideoTile3D {
     private(set) var textureWidth = 0
     private(set) var textureHeight = 0
     
-    private(set) var texture: MTLTexture?
+    private(set) var textureY: MTLTexture?
+    private(set) var textureCBCR: MTLTexture?
     
     var uniformsVertex = UniformsSpriteNodeIndexedVertex()
     private(set) var uniformsVertexBuffer: MTLBuffer!
@@ -75,12 +76,14 @@ class VideoTile3D {
         }
     }
     
-    func set(texture: MTLTexture?) {
-        self.texture = texture
-        if let texture = texture {
-            if textureWidth != texture.width || textureHeight != texture.height {
-                textureWidth = texture.width
-                textureHeight = texture.height
+    func set(textureY: MTLTexture?, textureCBCR: MTLTexture?) {
+        self.textureY = textureY
+        self.textureCBCR = textureCBCR
+        
+        if let textureY = textureY {
+            if textureWidth != textureY.width || textureHeight != textureY.height {
+                textureWidth = textureY.width
+                textureHeight = textureY.height
                 fit()
             }
         } else {
@@ -94,7 +97,7 @@ class VideoTile3D {
     
     private func fit() {
         
-        let fitResult = OversizedFrameFixer.fitLandscape(frameX: frameLeft,
+        let fitResult = OversizedFrameFixer.fitPortrait(frameX: frameLeft,
                                                         frameY: frameTop,
                                                         frameWidth: frameWidth,
                                                         frameHeight: frameHeight,
@@ -124,7 +127,8 @@ class VideoTile3D {
     
     func draw(renderEncoder: MTLRenderCommandEncoder) {
         
-        guard let texture = texture else { return }
+        guard let textureY = textureY else { return }
+        guard let textureCBCR = textureCBCR else { return }
         
         uniformsVertex.projectionMatrix.ortho(width: graphics.width,
                                               height: graphics.height)
@@ -135,7 +139,7 @@ class VideoTile3D {
         
         graphics.write(buffer: vertexDataBuffer, array: vertexData)
         
-        graphics.set(pipelineState: .spriteNodeIndexed3DAlphaBlending,
+        graphics.set(pipelineState: .spriteNodeIndexed3DYCBCRAlphaBlending,
                      renderEncoder: renderEncoder)
         
         graphics.set(samplerState: .linearClamp, renderEncoder: renderEncoder)
@@ -145,8 +149,11 @@ class VideoTile3D {
         graphics.setVertexDataBuffer(vertexDataBuffer,
                                           renderEncoder: renderEncoder)
         
-        graphics.setFragmentTexture(texture,
+        graphics.setFragmentTextureY(textureY,
                                      renderEncoder: renderEncoder)
+        graphics.setFragmentTextureCBCR(textureCBCR,
+                                        renderEncoder: renderEncoder)
+        
         graphics.setFragmentUniformsBuffer(uniformsFragmentBuffer,
                                            renderEncoder: renderEncoder)
         

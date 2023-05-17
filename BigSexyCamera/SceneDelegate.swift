@@ -33,6 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         */
         
         let scene = CameraScene()
+        //let scene = CaptureScene()
         let graphics = Graphics(delegate: scene,
                                 width: Float(UIScreen.main.bounds.width),
                                 height: Float(UIScreen.main.bounds.height))

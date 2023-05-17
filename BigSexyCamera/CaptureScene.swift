@@ -1,8 +1,8 @@
 //
-//  CameraScene.swift
+//  CaptureScene.swift
 //  BigSexyCamera
 //
-//  Created by Tiger Nixon on 5/14/23.
+//  Created by Tiger Nixon on 5/16/23.
 //
 
 import Foundation
@@ -11,30 +11,17 @@ import UIKit
 import simd
 import ARKit
 import CoreVideo
-import Accelerate
 
-class CameraScene: GraphicsDelegate {
+class CaptureScene: GraphicsDelegate {
     
     var graphics: Graphics!
     var textureCache: CVMetalTextureCache?
     
     
-    var inputProviderDataCurrentInUse = false
-    var inputProviderDataNext: AugmentedRealityCameraInputProviderData?
-    
-    
-    lazy var cameraInputProvider: AugmentedRealityCameraInputProvider = {
-        let result = AugmentedRealityCameraInputProvider(screenWidth: Int(graphics.width + 0.5),
-                                            
-                                                         screenHeight: Int(graphics.height + 0.5))
-        result.add(observer: self)
+    lazy var cameraInputProvider: CameraInputProvider = {
+        let result = CameraInputProvider(screenWidth: Int(graphics.width + 0.5),
+                                         screenHeight: Int(graphics.height + 0.5))
         return result
-    }()
-    
-    
-    
-    lazy var tileVideo: VideoTile3DYCBCR = {
-        VideoTile3DYCBCR(graphics: graphics)
     }()
     
     lazy var tileVideoY: VideoTile3D = {
@@ -54,16 +41,16 @@ class CameraScene: GraphicsDelegate {
     }()
     
     var lidarDepthTexture: MTLTexture?
-    //var lidarDepthBuffer: MTLBuffer?
+    var lidarDepthBuffer: MTLBuffer?
     
     var lidarConfidenceTexture: MTLTexture?
-    //var lidarConfidenceBuffer: MTLBuffer?
+    var lidarConfidenceBuffer: MTLBuffer?
     
     var videoTextureY: MTLTexture?
-    //var videoBufferY: MTLBuffer?
+    var videoBufferY: MTLBuffer?
     
     var videoTextureCBCR: MTLTexture?
-    //var videoBufferCBCR: MTLBuffer?
+    var videoBufferCBCR: MTLBuffer?
     
     func load() {
         
@@ -75,12 +62,10 @@ class CameraScene: GraphicsDelegate {
         let heightTop = Float(Int(graphics.height * 0.5 + 0.5))
         let heightBottom = Float(Int(graphics.height - Float(heightTop) + 0.5))
         
-        tileVideo.load()
         tileVideoY.load()
         tileVideoCBCR.load()
         tileVideoLidarDepth.load()
         tileVideoLidarConfidence.load()
-        
         
         tileVideoLidarConfidence.uniformsFragment.red = 128.0
         
@@ -89,8 +74,7 @@ class CameraScene: GraphicsDelegate {
         tileVideoLidarDepth.set(x: 0.0, y: heightTop, width: widthLeft, height: heightBottom)
         tileVideoLidarConfidence.set(x: widthLeft, y: heightTop, width: widthRight, height: heightBottom)
         
-        tileVideo.set(x: 0.0, y: 0.0, width: graphics.width, height: graphics.height)
-        
+        cameraInputProvider.delegate = self
         cameraInputProvider.setupCaptureSession()
         cameraInputProvider.startCapturingCameraInput()
     }
@@ -101,15 +85,10 @@ class CameraScene: GraphicsDelegate {
     
     func draw3D(renderEncoder: MTLRenderCommandEncoder) {
         
-        //heavy()
-        
         tileVideoY.draw(renderEncoder: renderEncoder)
         tileVideoCBCR.draw(renderEncoder: renderEncoder)
         tileVideoLidarDepth.draw(renderEncoder: renderEncoder)
         tileVideoLidarConfidence.draw(renderEncoder: renderEncoder)
-        
-        tileVideo.draw(renderEncoder: renderEncoder)
-        
     }
     
     func draw2D(renderEncoder: MTLRenderCommandEncoder) {
@@ -228,153 +207,12 @@ class CameraScene: GraphicsDelegate {
         */
     }
     
-    /*
-    func convertPixelBufferToUInt8Array(pixelBuffer: CVPixelBuffer) -> [[UInt8]]? {
-        CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
-
-        guard let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer) else {
-            return nil
-        }
-
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
-        let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
-        let channels = 4 // Assuming RGBA pixel format
-
-        let buffer = baseAddress.bindMemory(to: UInt8.self, capacity: width * height * channels)
-        defer { buffer.deallocate() }
-
-        var pixelBufferArray = [[UInt8]](repeating: [UInt8](repeating: 0, count: channels), count: height)
-
-        for y in 0..<height {
-            for x in 0..<width {
-                let offset = (y * bytesPerRow) + (x * channels)
-                let pixelData = buffer[offset..<offset+channels]
-                pixelBufferArray[y][x] = Array(pixelData)
-            }
-        }
-
-        CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
-
-        return pixelBufferArray
-    }
-    */
-    
-    /*
-    func convertPixelBufferToUInt8Array(pixelBuffer: CVPixelBuffer) -> [[UInt8]]? {
-        CVPixelBufferLockBaseAddress(pixelBuffer, .readOnly)
-
-        guard let baseAddress = CVPixelBufferGetBaseAddress(pixelBuffer) else {
-            return nil
-        }
-
-        let width = CVPixelBufferGetWidth(pixelBuffer)
-        let height = CVPixelBufferGetHeight(pixelBuffer)
-        let bytesPerRow = CVPixelBufferGetBytesPerRow(pixelBuffer)
-        let channels = 4 // Assuming RGBA pixel format
-
-        var pixelBufferArray = [[UInt8]](repeating: [UInt8](repeating: 0, count: channels), count: height)
-
-        for y in 0..<height {
-            let rowData = baseAddress + y * bytesPerRow
-            for x in 0..<width {
-                let offset = x * channels
-                let r = rowData[offset]
-                let g = rowData[offset + 1]
-                let b = rowData[offset + 2]
-                let a = rowData[offset + 3]
-                pixelBufferArray[y][x] = [r, g, b, a]
-            }
-        }
-
-        CVPixelBufferUnlockBaseAddress(pixelBuffer, .readOnly)
-
-        return pixelBufferArray
-    }
-    */
-    
-    /*
-    var _isSpool = false
-    func spool() {
-        
-        if _isSpool {
-            print("already spool...")
-            return
-        }
-        
-        _isSpool = true
-        DispatchQueue.global(qos: .default).async {
-            
-            self.graphics.engine.semaphore.wait()
-            
-            self.heavy()
-
-            self.graphics.engine.semaphore.signal()
-            
-            DispatchQueue.main.sync {
-                self._isSpool = false
-            }
-        }
-        
-    }
-    */
-    
-    func heavy() {
-        
-        guard let data = inputProviderDataNext else { return }
-        
-        /*
-        if Int.random(in: 0...10) == 5 {
-            Thread.sleep(forTimeInterval: 0.1)
-        }
-        */
-        
-        if let pixelBuffer = data.sceneDepthPixelBuffer {
-            lidarDepthTexture = generateMetalTexture(pixelBuffer: pixelBuffer,
-                                                      pixelFormat: .r32Float,
-                                                     planeIndex: 0)
-            tileVideoLidarDepth.set(texture: lidarDepthTexture)
-        }
-        
-        if let pixelBuffer = data.sceneDepthConfidencePixelBuffer {
-            
-            lidarConfidenceTexture = generateMetalTexture(pixelBuffer: pixelBuffer,
-                                                          pixelFormat: .r8Unorm,
-                                                          planeIndex: 0)
-            
-            tileVideoLidarConfidence.set(texture: lidarConfidenceTexture)
-        }
-        
-        if let pixelBuffer = data.capturedImagePixelBuffer {
-            let planeCount = CVPixelBufferGetPlaneCount(pixelBuffer)
-            let width = CVPixelBufferGetWidth(pixelBuffer)
-            let height = CVPixelBufferGetHeight(pixelBuffer)
-            if planeCount >= 2 && width > 0 && height > 0 {
-
-                videoTextureY = generateMetalTexture(pixelBuffer: pixelBuffer,
-                                                          pixelFormat: .r8Unorm,
-                                                          planeIndex: 0)
-                videoTextureCBCR = generateMetalTexture(pixelBuffer: pixelBuffer,
-                                                        pixelFormat: .rg8Unorm,
-                                                        planeIndex: 1)
-                
-                tileVideoY.set(texture: videoTextureY)
-                tileVideoCBCR.set(texture: videoTextureCBCR)
-                
-                tileVideo.set(textureY: videoTextureY,
-                              textureCBCR: videoTextureCBCR)
-                
-            }
-        }
-    }
 }
 
-extension CameraScene: AugmentedRealityCameraInputProviderReceiving {
-    
-    func provider(didReceive data: AugmentedRealityCameraInputProviderData) {
-        self.graphics.engine.semaphore.wait()
-        inputProviderDataNext = data
-        heavy()
-        self.graphics.engine.semaphore.signal()
+extension CaptureScene: CameraInputProviderDelegate {
+    func receive(image: UIImage) {
+        
     }
+    
+    
 }

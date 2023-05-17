@@ -134,9 +134,7 @@ class AugmentedRealityCameraInputProvider: NSObject {
 }
 
 extension AugmentedRealityCameraInputProvider: ARSessionDelegate {
-    
     func session(_ session: ARSession, didUpdate frame: ARFrame) {
-        
         let data = AugmentedRealityCameraInputProviderData(capturedImagePixelBuffer: frame.capturedImage,
                                                            smoothedSceneDepthPixelBuffer: frame.smoothedSceneDepth?.depthMap,
                                                            smoothedSceneDepthConfidencePixelBuffer: frame.smoothedSceneDepth?.confidenceMap,
