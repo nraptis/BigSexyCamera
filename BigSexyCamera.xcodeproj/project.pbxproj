@@ -7,10 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		0D15BE932A14178B003A92C2 /* CameraInputProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D15BE922A14178B003A92C2 /* CameraInputProvider.swift */; };
-		0D15BE952A1417D5003A92C2 /* CaptureScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D15BE942A1417D5003A92C2 /* CaptureScene.swift */; };
 		0D4685372A131F110062FD4F /* VideoTile3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D4685362A131F110062FD4F /* VideoTile3D.swift */; };
-		0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2052A119ADD000D0D93 /* Sprite2D.swift */; };
 		0D84B2082A119AF7000D0D93 /* Quaternion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D84B2072A119AF7000D0D93 /* Quaternion.swift */; };
 		0D86BE5C2A15406100339686 /* OversizedFrameFixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D86BE5B2A15406100339686 /* OversizedFrameFixer.swift */; };
 		0D86BE862A1558CA00339686 /* VideoTile3DYCBCR.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0D86BE852A1558CA00339686 /* VideoTile3DYCBCR.swift */; };
@@ -22,7 +19,6 @@
 		0DB44CD02A111AB800265BB1 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CCC2A111AB800265BB1 /* MetalViewController.swift */; };
 		0DB44CD22A111AEC00265BB1 /* Graphics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD12A111AEC00265BB1 /* Graphics.swift */; };
 		0DB44CE52A111B3600265BB1 /* Recycler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD42A111B3500265BB1 /* Recycler.swift */; };
-		0DB44CE62A111B3600265BB1 /* RecyclerSprite2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD52A111B3500265BB1 /* RecyclerSprite2D.swift */; };
 		0DB44CE72A111B3600265BB1 /* RecyclerShapeQuad3D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD62A111B3500265BB1 /* RecyclerShapeQuad3D.swift */; };
 		0DB44CE82A111B3600265BB1 /* RecyclerShapeTriangle2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD72A111B3500265BB1 /* RecyclerShapeTriangle2D.swift */; };
 		0DB44CE92A111B3600265BB1 /* RecyclerShapeQuad2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0DB44CD82A111B3500265BB1 /* RecyclerShapeQuad2D.swift */; };
@@ -67,10 +63,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D15BE922A14178B003A92C2 /* CameraInputProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CameraInputProvider.swift; path = ../../CameraInputProvider.swift; sourceTree = "<group>"; };
-		0D15BE942A1417D5003A92C2 /* CaptureScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptureScene.swift; sourceTree = "<group>"; };
 		0D4685362A131F110062FD4F /* VideoTile3D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTile3D.swift; sourceTree = "<group>"; };
-		0D84B2052A119ADD000D0D93 /* Sprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Sprite2D.swift; sourceTree = "<group>"; };
 		0D84B2072A119AF7000D0D93 /* Quaternion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quaternion.swift; sourceTree = "<group>"; };
 		0D86BE5B2A15406100339686 /* OversizedFrameFixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OversizedFrameFixer.swift; sourceTree = "<group>"; };
 		0D86BE852A1558CA00339686 /* VideoTile3DYCBCR.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoTile3DYCBCR.swift; sourceTree = "<group>"; };
@@ -82,7 +75,6 @@
 		0DB44CCC2A111AB800265BB1 /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 		0DB44CD12A111AEC00265BB1 /* Graphics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
 		0DB44CD42A111B3500265BB1 /* Recycler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Recycler.swift; sourceTree = "<group>"; };
-		0DB44CD52A111B3500265BB1 /* RecyclerSprite2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerSprite2D.swift; sourceTree = "<group>"; };
 		0DB44CD62A111B3500265BB1 /* RecyclerShapeQuad3D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerShapeQuad3D.swift; sourceTree = "<group>"; };
 		0DB44CD72A111B3500265BB1 /* RecyclerShapeTriangle2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerShapeTriangle2D.swift; sourceTree = "<group>"; };
 		0DB44CD82A111B3500265BB1 /* RecyclerShapeQuad2D.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RecyclerShapeQuad2D.swift; sourceTree = "<group>"; };
@@ -157,7 +149,6 @@
 			isa = PBXGroup;
 			children = (
 				0DB44CD42A111B3500265BB1 /* Recycler.swift */,
-				0DB44CD52A111B3500265BB1 /* RecyclerSprite2D.swift */,
 				0DB44CD62A111B3500265BB1 /* RecyclerShapeQuad3D.swift */,
 				0DB44CD72A111B3500265BB1 /* RecyclerShapeTriangle2D.swift */,
 				0DB44CD82A111B3500265BB1 /* RecyclerShapeQuad2D.swift */,
@@ -225,11 +216,8 @@
 				0DB44CC02A1119D200265BB1 /* Matrix.swift */,
 				0D84B2072A119AF7000D0D93 /* Quaternion.swift */,
 				0DB44CFD2A11324200265BB1 /* CameraScene.swift */,
-				0D84B2052A119ADD000D0D93 /* Sprite2D.swift */,
 				0D4685362A131F110062FD4F /* VideoTile3D.swift */,
 				0D86BE852A1558CA00339686 /* VideoTile3DYCBCR.swift */,
-				0D15BE922A14178B003A92C2 /* CameraInputProvider.swift */,
-				0D15BE942A1417D5003A92C2 /* CaptureScene.swift */,
 				0D86BE5B2A15406100339686 /* OversizedFrameFixer.swift */,
 			);
 			path = BigSexyCamera;
@@ -384,13 +372,9 @@
 			files = (
 				0DB44CF22A111B3600265BB1 /* SpriteNodeIndexed.metal in Sources */,
 				0DB44CC22A1119D200265BB1 /* Matrix.swift in Sources */,
-				0D15BE952A1417D5003A92C2 /* CaptureScene.swift in Sources */,
-				0D15BE932A14178B003A92C2 /* CameraInputProvider.swift in Sources */,
 				0DB44CEF2A111B3600265BB1 /* Uniforms.swift in Sources */,
 				0DB44CF12A111B3600265BB1 /* ShapeNodeIndexed.metal in Sources */,
-				0D84B2062A119ADD000D0D93 /* Sprite2D.swift in Sources */,
 				0D4685372A131F110062FD4F /* VideoTile3D.swift in Sources */,
-				0DB44CE62A111B3600265BB1 /* RecyclerSprite2D.swift in Sources */,
 				0DB44CE92A111B3600265BB1 /* RecyclerShapeQuad2D.swift in Sources */,
 				0DB44CE52A111B3600265BB1 /* Recycler.swift in Sources */,
 				0DB44CE82A111B3600265BB1 /* RecyclerShapeTriangle2D.swift in Sources */,
@@ -591,6 +575,8 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Streams live video to perform operations on video using metal.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -620,6 +606,8 @@
 				INFOPLIST_KEY_NSCameraUsageDescription = "Streams live video to perform operations on video using metal.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIRequiresFullScreen = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleDarkContent;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = UIInterfaceOrientationPortrait;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;

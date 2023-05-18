@@ -139,7 +139,6 @@ class CameraScene: GraphicsDelegate {
     
     func generateMetalBuffer(pixelBuffer: CVPixelBuffer?, planeIndex: Int) -> MTLBuffer? {
         guard let pixelBuffer = pixelBuffer else { return nil }
-        let width = CVPixelBufferGetWidthOfPlane(pixelBuffer, planeIndex)
         let height = CVPixelBufferGetHeightOfPlane(pixelBuffer, planeIndex)
         let bytesPerRow = CVPixelBufferGetBytesPerRowOfPlane(pixelBuffer, planeIndex)
         let size = height * bytesPerRow

@@ -129,31 +129,23 @@ struct OversizedFrameFixer {
         if portrait {
             result.topLeft.u = startV
             result.topLeft.v = endU
-            
             result.topRight.u = startV
             result.topRight.v = startU
-            
             result.bottomLeft.u = endV
             result.bottomLeft.v = endU
-            
             result.bottomRight.u = endV
             result.bottomRight.v = startU
         } else {
             result.topLeft.u = startU
             result.topLeft.v = startV
-            
             result.topRight.u = endU
             result.topRight.v = startV
-            
             result.bottomLeft.u = startU
             result.bottomLeft.v = endV
-            
             result.bottomRight.u = endU
             result.bottomRight.v = endV
         }
-
         return result
-        
     }
     
 }
