@@ -31,7 +31,7 @@ class RecyclerShapeTriangle3D: Recycler<RecyclerShapeTriangle3D.Slice> {
     
     func drawTriangle(graphics: Graphics, renderEncoder: MTLRenderCommandEncoder,
                       projection: matrix_float4x4, modelView: matrix_float4x4,
-                      p1: simd_float3, p2: simd_float3, p3: simd_float3) {
+                      p1: SIMD3<Float>, p2: SIMD3<Float>, p3: SIMD3<Float>) {
         drawTriangle(graphics: graphics, renderEncoder: renderEncoder, projection: projection, modelView: modelView,
                      x1: p1.x, y1: p1.y, z1: p1.z,
                      x2: p2.x, y2: p2.y, z2: p2.z,

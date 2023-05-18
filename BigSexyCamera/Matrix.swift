@@ -284,24 +284,24 @@ extension matrix_float4x4 {
              m33: 1.0)
     }
     
-    func process(point3: simd_float3) -> simd_float3 {
+    func process(point3: SIMD3<Float>) -> SIMD3<Float> {
         let x = columns.0.x * point3.x + columns.1.x * point3.y + columns.2.x * point3.z + columns.3.x
         let y = columns.0.y * point3.x + columns.1.y * point3.y + columns.2.y * point3.z + columns.3.y
         let z = columns.0.z * point3.x + columns.1.z * point3.y + columns.2.z * point3.z + columns.3.z
         let w = columns.0.w * point3.x + columns.1.w * point3.y + columns.2.w * point3.z + columns.3.w
         if fabsf(w) > Math.epsilon {
             let scale = 1.0 / w
-            return simd_float3(x * scale, y * scale, z * scale)
+            return SIMD3<Float>(x * scale, y * scale, z * scale)
         } else {
-            return simd_float3(x, y, z)
+            return SIMD3<Float>(x, y, z)
         }
     }
     
-    func processRotationOnly(point3: simd_float3) -> simd_float3 {
+    func processRotationOnly(point3: SIMD3<Float>) -> SIMD3<Float> {
         let x = columns.0.x * point3.x + columns.1.x * point3.y + columns.2.x * point3.z
         let y = columns.0.y * point3.x + columns.1.y * point3.y + columns.2.y * point3.z
         let z = columns.0.z * point3.x + columns.1.z * point3.y + columns.2.z * point3.z
-        return simd_float3(x, y, z)
+        return SIMD3<Float>(x, y, z)
     }
     
     mutating func scale(_ factor: Float) {

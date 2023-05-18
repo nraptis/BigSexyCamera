@@ -31,7 +31,7 @@ class RecyclerShapeQuad3D: Recycler<RecyclerShapeQuad3D.Slice> {
     
     func drawQuad(graphics: Graphics, renderEncoder: MTLRenderCommandEncoder,
                   projection: matrix_float4x4, modelView: matrix_float4x4,
-                  p1: simd_float3, p2: simd_float3, p3: simd_float3, p4: simd_float3) {
+                  p1: SIMD3<Float>, p2: SIMD3<Float>, p3: SIMD3<Float>, p4: SIMD3<Float>) {
         drawQuad(graphics: graphics, renderEncoder: renderEncoder, projection: projection, modelView: modelView,
                  x1: p1.x, y1: p1.y, z1: p1.z,
                  x2: p2.x, y2: p2.y, z2: p2.z,
@@ -83,7 +83,7 @@ class RecyclerShapeQuad3D: Recycler<RecyclerShapeQuad3D.Slice> {
     
     func drawCube(graphics: Graphics, renderEncoder: MTLRenderCommandEncoder,
                   projection: matrix_float4x4, modelView: matrix_float4x4,
-                  point: simd_float3, size: Float) {
+                  point: SIMD3<Float>, size: Float) {
         drawCube(graphics: graphics, renderEncoder: renderEncoder,
                  projection: projection, modelView: modelView,
                  x: point.x, y: point.y, z: point.z, size: size)
@@ -173,7 +173,7 @@ class RecyclerShapeQuad3D: Recycler<RecyclerShapeQuad3D.Slice> {
         dirY /= length
         dirZ /= length
         
-        let axis = simd_float3(dirX, dirY, dirZ)
+        let axis = SIMD3<Float>(dirX, dirY, dirZ)
         let reference = Math.perpendicularNormal(float3: axis)
         
         var perp1 = Math.rotateNormalized(float3: reference, radians: 0.0, axisX: axis.x, axisY: axis.y, axisZ: axis.z)
@@ -181,20 +181,20 @@ class RecyclerShapeQuad3D: Recycler<RecyclerShapeQuad3D.Slice> {
         var perp3 = Math.rotateNormalized(float3: reference, radians: Float.pi, axisX: axis.x, axisY: axis.y, axisZ: axis.z)
         var perp4 = Math.rotateNormalized(float3: reference, radians: (3.0 * Float.pi) / 2.0, axisX: axis.x, axisY: axis.y, axisZ: axis.z)
         
-        perp1 = simd_float3(perp1.x * size, perp1.y * size, perp1.z * size)
-        perp2 = simd_float3(perp2.x * size, perp2.y * size, perp2.z * size)
-        perp3 = simd_float3(perp3.x * size, perp3.y * size, perp3.z * size)
-        perp4 = simd_float3(perp4.x * size, perp4.y * size, perp4.z * size)
+        perp1 = SIMD3<Float>(perp1.x * size, perp1.y * size, perp1.z * size)
+        perp2 = SIMD3<Float>(perp2.x * size, perp2.y * size, perp2.z * size)
+        perp3 = SIMD3<Float>(perp3.x * size, perp3.y * size, perp3.z * size)
+        perp4 = SIMD3<Float>(perp4.x * size, perp4.y * size, perp4.z * size)
         
-        var corner_1_0 = simd_float3(0.0, 0.0, 0.0)
-        var corner_1_1 = simd_float3(0.0, 0.0, 0.0)
-        var corner_1_2 = simd_float3(0.0, 0.0, 0.0)
-        var corner_1_3 = simd_float3(0.0, 0.0, 0.0)
+        var corner_1_0 = SIMD3<Float>(0.0, 0.0, 0.0)
+        var corner_1_1 = SIMD3<Float>(0.0, 0.0, 0.0)
+        var corner_1_2 = SIMD3<Float>(0.0, 0.0, 0.0)
+        var corner_1_3 = SIMD3<Float>(0.0, 0.0, 0.0)
 
-        var corner_2_0 = simd_float3(0.0, 0.0, 0.0)
-        var corner_2_1 = simd_float3(0.0, 0.0, 0.0)
-        var corner_2_2 = simd_float3(0.0, 0.0, 0.0)
-        var corner_2_3 = simd_float3(0.0, 0.0, 0.0)
+        var corner_2_0 = SIMD3<Float>(0.0, 0.0, 0.0)
+        var corner_2_1 = SIMD3<Float>(0.0, 0.0, 0.0)
+        var corner_2_2 = SIMD3<Float>(0.0, 0.0, 0.0)
+        var corner_2_3 = SIMD3<Float>(0.0, 0.0, 0.0)
         
         // // // // //
         //          //

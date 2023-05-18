@@ -98,7 +98,7 @@ class MetalEngine {
         renderPassDescriptor3D.colorAttachments[0].texture = storageTexture
         renderPassDescriptor3D.colorAttachments[0].loadAction = .clear
         renderPassDescriptor3D.colorAttachments[0].storeAction = .store
-        renderPassDescriptor3D.colorAttachments[0].clearColor = MTLClearColor(red: 1.0, green: 0.0, blue: 0.075, alpha: 1.0)
+        renderPassDescriptor3D.colorAttachments[0].clearColor = MTLClearColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         renderPassDescriptor3D.depthAttachment.loadAction = .clear
         renderPassDescriptor3D.depthAttachment.clearDepth = 1.0
         renderPassDescriptor3D.depthAttachment.texture = depthTexture

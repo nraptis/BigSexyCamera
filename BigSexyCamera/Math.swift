@@ -20,71 +20,71 @@ struct Math {
         return radians * 180.0 / Float.pi
     }
     
-    static func vector2D(radians: Float) -> simd_float2 {
+    static func vector2D(radians: Float) -> SIMD2<Float> {
         let x = sinf(radians)
         let y = -cos(radians)
-        return simd_float2(x, y)
+        return SIMD2<Float>(x, y)
     }
 
-    static func vector2D(degrees: Float) -> simd_float2 {
+    static func vector2D(degrees: Float) -> SIMD2<Float> {
         vector2D(radians: radians(degrees: degrees))
     }
     
-    static func rotate(float3: simd_float3, radians: Float, axisX: Float, axisY: Float, axisZ: Float) -> simd_float3 {
+    static func rotate(float3: SIMD3<Float>, radians: Float, axisX: Float, axisY: Float, axisZ: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotation(radians: radians, axisX: axisX, axisY: axisY, axisZ: axisZ)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
 
-    static func rotate(float3: simd_float3, degrees: Float, axisX: Float, axisY: Float, axisZ: Float) -> simd_float3 {
+    static func rotate(float3: SIMD3<Float>, degrees: Float, axisX: Float, axisY: Float, axisZ: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotation(degrees: degrees, axisX: axisX, axisY: axisY, axisZ: axisZ)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
 
-    static func rotateNormalized(float3: simd_float3, radians: Float, axisX: Float, axisY: Float, axisZ: Float) -> simd_float3 {
+    static func rotateNormalized(float3: SIMD3<Float>, radians: Float, axisX: Float, axisY: Float, axisZ: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationNormalized(radians: radians, axisX: axisX, axisY: axisY, axisZ: axisZ)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
 
-    static func rotateNormalized(float3: simd_float3, degrees: Float, axisX: Float, axisY: Float, axisZ: Float) -> simd_float3 {
+    static func rotateNormalized(float3: SIMD3<Float>, degrees: Float, axisX: Float, axisY: Float, axisZ: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationNormalized(degrees: degrees, axisX: axisX, axisY: axisY, axisZ: axisZ)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
     
-    static func rotateX(float3: simd_float3, radians: Float) -> simd_float3 {
+    static func rotateX(float3: SIMD3<Float>, radians: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationX(radians: radians)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
 
-    static func rotateX(float3: simd_float3, degrees: Float) -> simd_float3 {
+    static func rotateX(float3: SIMD3<Float>, degrees: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationX(degrees: degrees)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
     
-    static func rotateY(float3: simd_float3, radians: Float) -> simd_float3 {
+    static func rotateY(float3: SIMD3<Float>, radians: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationY(radians: radians)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
 
-    static func rotateY(float3: simd_float3, degrees: Float) -> simd_float3 {
+    static func rotateY(float3: SIMD3<Float>, degrees: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationY(degrees: degrees)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
     
-    static func rotateZ(float3: simd_float3, radians: Float) -> simd_float3 {
+    static func rotateZ(float3: SIMD3<Float>, radians: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationZ(radians: radians)
         return rotationMatrix.processRotationOnly(point3: float3)
     }
 
-    static func rotateZ(float3: simd_float3, degrees: Float) -> simd_float3 {
+    static func rotateZ(float3: SIMD3<Float>, degrees: Float) -> SIMD3<Float> {
         var rotationMatrix = matrix_float4x4()
         rotationMatrix.rotationZ(degrees: degrees)
         return rotationMatrix.processRotationOnly(point3: float3)
@@ -144,10 +144,10 @@ struct Math {
         return result
     }
     
-    static func segmentClosestPoint(point: simd_float2,
-                                    lineStart: simd_float2,
-                                    lineEnd: simd_float2) -> simd_float2 {
-        var result = simd_float2(lineStart.x, lineStart.y)
+    static func segmentClosestPoint(point: SIMD2<Float>,
+                                    lineStart: SIMD2<Float>,
+                                    lineEnd: SIMD2<Float>) -> SIMD2<Float> {
+        var result = SIMD2<Float>(lineStart.x, lineStart.y)
         let factor1X = point.x - lineStart.x
         let factor1Y = point.y - lineStart.y
         let lineDiffX = lineEnd.x - lineStart.x
@@ -174,7 +174,7 @@ struct Math {
         return result
     }
     
-    static func distance(point1: simd_float2, point2: simd_float2) -> Float {
+    static func distance(point1: SIMD2<Float>, point2: SIMD2<Float>) -> Float {
         let distanceSquared = distanceSquared(point1: point1, point2: point2)
         if distanceSquared > Self.epsilon {
             return sqrtf(distanceSquared)
@@ -182,19 +182,19 @@ struct Math {
         return 0.0
     }
 
-    static func distanceSquared(point1: simd_float2, point2: simd_float2) -> Float {
+    static func distanceSquared(point1: SIMD2<Float>, point2: SIMD2<Float>) -> Float {
         let diffX = point2.x - point1.x
         let diffY = point2.y - point1.y
         return diffX * diffX + diffY * diffY
     }
     
-    static func perpendicularNormal(float3: simd_float3) -> simd_float3 {
+    static func perpendicularNormal(float3: SIMD3<Float>) -> SIMD3<Float> {
         
         let factorX = fabsf(float3.x)
         let factorY = fabsf(float3.y)
         let factorZ = fabsf(float3.z)
 
-        var result = simd_float3(0.0, 0.0, 0.0)
+        var result = SIMD3<Float>(0.0, 0.0, 0.0)
         if factorX < Math.epsilon {
             if factorY < Math.epsilon {
                 result.y = 1.0
@@ -233,21 +233,21 @@ struct Math {
         return result
     }
     
-    static func radiansFacing(vector2D: simd_float2) -> Float {
+    static func radiansFacing(vector2D: SIMD2<Float>) -> Float {
         -atan2f(vector2D.x, vector2D.y)
     }
     
-    static func radiansFacing(origin: simd_float2, target: simd_float2) -> Float {
-        radiansFacing(vector2D: simd_float2(origin.x - target.x, origin.y - target.y))
+    static func radiansFacing(origin: SIMD2<Float>, target: SIMD2<Float>) -> Float {
+        radiansFacing(vector2D: SIMD2<Float>(origin.x - target.x, origin.y - target.y))
     }
     
-    static func degreesFacing(vector2D: simd_float2) -> Float {
+    static func degreesFacing(vector2D: SIMD2<Float>) -> Float {
         let radians = radiansFacing(vector2D: vector2D)
         return degrees(radians: radians)
     }
     
-    static func degreesFacing(origin: simd_float2, target: simd_float2) -> Float {
-        degreesFacing(vector2D: simd_float2(origin.x - target.x, origin.y - target.y))
+    static func degreesFacing(origin: SIMD2<Float>, target: SIMD2<Float>) -> Float {
+        degreesFacing(vector2D: SIMD2<Float>(origin.x - target.x, origin.y - target.y))
     }
     
     

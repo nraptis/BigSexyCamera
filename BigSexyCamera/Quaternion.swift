@@ -16,13 +16,13 @@ extension simd_quatf {
         vector.w = 1.0
     }
     
-    func eulersRadians() -> simd_float3 {
+    func eulersRadians() -> SIMD3<Float> {
         let xSquared = vector.x * vector.x
         let ySquared = vector.y * vector.y
         let zSquared = vector.z * vector.z
         let wSquared = vector.w * vector.w
         let test = 2.0 * (vector.y * vector.w - vector.x * vector.z)
-        var euler = simd_float3(0.0, 0.0, 0.0)
+        var euler = SIMD3<Float>(0.0, 0.0, 0.0)
         /*
         if Math.equalsApproximately(number1: 1.0, number2: test) {
             euler.x = 0.0
@@ -50,12 +50,12 @@ extension simd_quatf {
         return euler
     }
     
-    func eulersDegrees() -> simd_float3 {
+    func eulersDegrees() -> SIMD3<Float> {
         let eulersRadians = eulersRadians()
         let x = Math.degrees(radians: eulersRadians.x)
         let y = Math.degrees(radians: eulersRadians.y)
         let z = Math.degrees(radians: eulersRadians.z)
-        return simd_float3(x, y, z)
+        return SIMD3<Float>(x, y, z)
     }
     
     mutating func makeEulerDegrees(yaw: Float, pitch: Float, roll: Float) {

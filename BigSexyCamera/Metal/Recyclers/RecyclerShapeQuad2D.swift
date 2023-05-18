@@ -31,7 +31,7 @@ class RecyclerShapeQuad2D: Recycler<RecyclerShapeQuad2D.Slice> {
     
     func drawQuad(graphics: Graphics, renderEncoder: MTLRenderCommandEncoder,
                   projection: matrix_float4x4, modelView: matrix_float4x4,
-                  p1: simd_float2, p2: simd_float2, p3: simd_float2, p4: simd_float2) {
+                  p1: SIMD2<Float>, p2: SIMD2<Float>, p3: SIMD2<Float>, p4: SIMD2<Float>) {
         drawQuad(graphics: graphics, renderEncoder: renderEncoder, projection: projection, modelView: modelView,
                  x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y, x3: p3.x, y3: p3.y, x4: p4.x, y4: p4.y)
     }
@@ -88,7 +88,7 @@ class RecyclerShapeQuad2D: Recycler<RecyclerShapeQuad2D.Slice> {
     
     func drawLine(graphics: Graphics, renderEncoder: MTLRenderCommandEncoder,
                   projection: matrix_float4x4, modelView: matrix_float4x4,
-                  p1: simd_float2, p2: simd_float2, thickness: Float = 1.0) {
+                  p1: SIMD2<Float>, p2: SIMD2<Float>, thickness: Float = 1.0) {
         drawLine(graphics: graphics, renderEncoder: renderEncoder,
                  projection: projection, modelView: modelView,
                  x1: p1.x, y1: p1.y, x2: p2.x, y2: p2.y, thickness: thickness)
@@ -104,7 +104,7 @@ class RecyclerShapeQuad2D: Recycler<RecyclerShapeQuad2D.Slice> {
 
     func drawRect(graphics: Graphics, renderEncoder: MTLRenderCommandEncoder,
                   projection: matrix_float4x4, modelView: matrix_float4x4,
-                  origin: simd_float2, size: simd_float2) {
+                  origin: SIMD2<Float>, size: SIMD2<Float>) {
         drawRect(graphics: graphics, renderEncoder: renderEncoder,
                  projection: projection, modelView: modelView,
                  x: origin.x, y: origin.y, width: size.x, height: size.y)
@@ -121,7 +121,7 @@ class RecyclerShapeQuad2D: Recycler<RecyclerShapeQuad2D.Slice> {
 
     func drawPoint(graphics: Graphics, renderEncoder: MTLRenderCommandEncoder,
                    projection: matrix_float4x4, modelView: matrix_float4x4,
-                   point: simd_float2, size: Float = 6.0) {
+                   point: SIMD2<Float>, size: Float = 6.0) {
         drawPoint(graphics: graphics, renderEncoder: renderEncoder,
                   projection: projection, modelView: modelView,
                   x: point.x, y: point.y, size: size)

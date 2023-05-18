@@ -37,6 +37,10 @@ class CameraScene: GraphicsDelegate {
         VideoTile3DYCBCR(graphics: graphics)
     }()
     
+    lazy var tileGroovy: GroovyTile3DYCBCR = {
+        GroovyTile3DYCBCR(graphics: graphics)
+    }()
+    
     lazy var tileVideoY: VideoTile3D = {
         VideoTile3D(graphics: graphics)
     }()
@@ -76,6 +80,7 @@ class CameraScene: GraphicsDelegate {
         let heightBottom = Float(Int(graphics.height - Float(heightTop) + 0.5))
         
         tileVideo.load()
+        tileGroovy.load()
         tileVideoY.load()
         tileVideoCBCR.load()
         tileVideoLidarDepth.load()
@@ -90,6 +95,10 @@ class CameraScene: GraphicsDelegate {
         tileVideoLidarConfidence.set(x: widthLeft, y: heightTop, width: widthRight, height: heightBottom)
         
         tileVideo.set(x: 0.0, y: 0.0, width: graphics.width, height: graphics.height)
+        tileGroovy.set(x: -(graphics.width * 0.5),
+                       y: -(graphics.height * 0.5),
+                       width: graphics.width,
+                       height: graphics.height)
         
         cameraInputProvider.setupCaptureSession()
         cameraInputProvider.startCapturingCameraInput()
@@ -103,12 +112,13 @@ class CameraScene: GraphicsDelegate {
         
         //heavy()
         
-        tileVideoY.draw(renderEncoder: renderEncoder)
-        tileVideoCBCR.draw(renderEncoder: renderEncoder)
-        tileVideoLidarDepth.draw(renderEncoder: renderEncoder)
-        tileVideoLidarConfidence.draw(renderEncoder: renderEncoder)
+        //tileVideoY.draw(renderEncoder: renderEncoder)
+        //tileVideoCBCR.draw(renderEncoder: renderEncoder)
+        //tileVideoLidarDepth.draw(renderEncoder: renderEncoder)
+        //tileVideoLidarConfidence.draw(renderEncoder: renderEncoder)
         
-        tileVideo.draw(renderEncoder: renderEncoder)
+        //tileVideo.draw(renderEncoder: renderEncoder)
+        tileGroovy.draw(renderEncoder: renderEncoder)
         
     }
     
@@ -362,6 +372,9 @@ class CameraScene: GraphicsDelegate {
                 
                 tileVideo.set(textureY: videoTextureY,
                               textureCBCR: videoTextureCBCR)
+                
+                tileGroovy.set(textureY: videoTextureY,
+                               textureCBCR: videoTextureCBCR)
                 
             }
         }
