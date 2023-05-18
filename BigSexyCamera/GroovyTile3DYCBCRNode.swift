@@ -1,15 +1,15 @@
 //
-//  VideoTile3DYCBCR.swift
+//  GroovyTile3DYCBCRTile.swift
 //  BigSexyCamera
 //
-//  Created by Tiger Nixon on 5/17/23.
+//  Created by Tiger Nixon on 5/18/23.
 //
 
 import Foundation
 import Metal
 import simd
 
-class VideoTile3DYCBCR {
+class GroovyTile3DYCBCRNode {
     
     struct Sprite3DNode {
         var x: Float
@@ -20,13 +20,28 @@ class VideoTile3DYCBCR {
     }
     
     let graphics: Graphics
+    let gridX: Int
+    let gridY: Int
     
-    private(set) var frameLeft: Float = -128.0
-    private(set) var frameRight: Float = 128.0
-    private(set) var frameTop: Float = -128.0
-    private(set) var frameBottom: Float = 128.0
-    private(set) var frameWidth: Float = 256.0
-    private(set) var frameHeight: Float = 256.0
+    private(set) var centerX: Float = 0.0
+    private(set) var centerY: Float = 0.0
+    
+    private(set) var width: Float = 256.0
+    private(set) var height: Float = 256.0
+    
+    private(set) var x1: Float = -128.0
+    private(set) var x2: Float = 128.0
+    private(set) var y1: Float = -128.0
+    private(set) var y2: Float = 128.0
+    
+    private(set) var topLeftU: Float = 0.0
+    private(set) var topLeftV: Float = 0.0
+    private(set) var topRightU: Float = 1.0
+    private(set) var topRightV: Float = 0.0
+    private(set) var bottomLeftU: Float = 0.0
+    private(set) var bottomLeftV: Float = 1.0
+    private(set) var bottomRightU: Float = 1.0
+    private(set) var bottomRightV: Float = 1.0
     
     private(set) var textureWidth = 0
     private(set) var textureHeight = 0
@@ -49,8 +64,10 @@ class VideoTile3DYCBCR {
     var indices: [UInt16] = [0, 1, 2, 3]
     var indexBuffer: MTLBuffer!
     
-    required init(graphics: Graphics) {
+    required init(graphics: Graphics, gridX: Int, gridY: Int) {
         self.graphics = graphics
+        self.gridX = gridX
+        self.gridY = gridY
     }
     
     func load() {
@@ -61,78 +78,83 @@ class VideoTile3DYCBCR {
         indexBuffer = graphics.buffer(array: indices)
     }
     
-    func set(x: Float, y: Float, width: Float, height: Float) {
+    func set(centerX: Float, centerY: Float, width: Float, height: Float) {
         
-        if frameLeft != x || frameWidth != width || frameTop != y || frameHeight != height {
-            
-            self.frameLeft = x
-            self.frameRight = x + width
-            self.frameTop = y
-            self.frameBottom = y + height
-            self.frameWidth = width
-            self.frameHeight = height
-            
-            fit()
-        }
+        let width2 = width * 0.5
+        let height2 = height * 0.5
+        
+        self.centerX = centerX
+        self.centerY = centerY
+        
+        self.width = width
+        self.height = height
+        
+        x1 = -width2
+        x2 = x1 + width
+        y1 = -height2
+        y2 = y1 + height
+
+        vertexData[0].x = x1
+        vertexData[0].y = y1
+        
+        vertexData[1].x = x2
+        vertexData[1].y = y1
+        
+        vertexData[2].x = x1
+        vertexData[2].y = y2
+        
+        vertexData[3].x = x2
+        vertexData[3].y = y2
+    }
+    
+    func set(topLeftU: Float, topLeftV: Float, topRightU: Float, topRightV: Float,
+             bottomLeftU: Float, bottomLeftV: Float, bottomRightU: Float, bottomRightV: Float) {
+        self.topLeftU = topLeftU
+        self.topLeftV = topLeftV
+        
+        self.topRightU = topRightU
+        self.topRightV = topRightV
+        
+        self.bottomLeftU = bottomLeftU
+        self.bottomLeftV = bottomLeftV
+        
+        self.bottomRightU = bottomRightU
+        self.bottomRightV = bottomRightV
+
+        vertexData[0].u = topLeftU
+        vertexData[0].v = topLeftV
+        
+        vertexData[1].u = topRightU
+        vertexData[1].v = topRightV
+        
+        vertexData[2].u = bottomLeftU
+        vertexData[2].v = bottomLeftV
+        
+        vertexData[3].u = bottomRightU
+        vertexData[3].v = bottomRightV
     }
     
     func set(textureY: MTLTexture?, textureCBCR: MTLTexture?) {
         self.textureY = textureY
         self.textureCBCR = textureCBCR
-        
-        if let textureY = textureY {
-            if textureWidth != textureY.width || textureHeight != textureY.height {
-                textureWidth = textureY.width
-                textureHeight = textureY.height
-                fit()
-            }
-        } else {
-            if 0 != self.textureWidth || 0 != self.textureHeight {
-                textureWidth = 0
-                textureHeight = 0
-                fit()
-            }
-        }
     }
     
-    private func fit() {
-        
-        let fitResult = OversizedFrameFixer.fitPortrait(frameX: frameLeft,
-                                                        frameY: frameTop,
-                                                        frameWidth: frameWidth,
-                                                        frameHeight: frameHeight,
-                                                        textureWidth: textureWidth,
-                                                        textureHeight: textureHeight)
-        
-        vertexData[0].x = fitResult.topLeft.x
-        vertexData[0].y = fitResult.topLeft.y
-        vertexData[0].u = fitResult.topLeft.u
-        vertexData[0].v = fitResult.topLeft.v
-        
-        vertexData[1].x = fitResult.topRight.x
-        vertexData[1].y = fitResult.topRight.y
-        vertexData[1].u = fitResult.topRight.u
-        vertexData[1].v = fitResult.topRight.v
-        
-        vertexData[2].x = fitResult.bottomLeft.x
-        vertexData[2].y = fitResult.bottomLeft.y
-        vertexData[2].u = fitResult.bottomLeft.u
-        vertexData[2].v = fitResult.bottomLeft.v
-        
-        vertexData[3].x = fitResult.bottomRight.x
-        vertexData[3].y = fitResult.bottomRight.y
-        vertexData[3].u = fitResult.bottomRight.u
-        vertexData[3].v = fitResult.bottomRight.v
-    }
-    
-    func draw(renderEncoder: MTLRenderCommandEncoder) {
+    func draw(renderEncoder: MTLRenderCommandEncoder, projection: matrix_float4x4) {
         
         guard let textureY = textureY else { return }
         guard let textureCBCR = textureCBCR else { return }
         
-        uniformsVertex.projectionMatrix.ortho(width: graphics.width,
-                                              height: graphics.height)
-        uniformsVertex.modelViewMatrix = matrix_identity_float4x4
+        
+        //runiformsFragment.alpha = 0.5
+        uniformsVertex.projectionMatrix = projection
+        
+        
+        var modelView = matrix_identity_float4x4
+        
+        modelView.translate(x: centerX, y: centerY, z: 0.0)
+        modelView.scale(0.9)
+        
+        uniformsVertex.modelViewMatrix = modelView
         
         graphics.write(buffer: uniformsVertexBuffer, uniform: uniformsVertex)
         graphics.write(buffer: uniformsFragmentBuffer, uniform: uniformsFragment)

@@ -81,15 +81,10 @@ class MetalEngine {
     
     func draw() {
         
-        /*
-        if Int.random(in: 0...10) == 5 {
-            Thread.sleep(forTimeInterval: 0.1)
-        }
-        */
-        
         guard let drawable = layer.nextDrawable() else {
             return
         }
+        
         guard let commandBuffer = commandQueue.makeCommandBuffer() else {
             return
         }
@@ -115,9 +110,7 @@ class MetalEngine {
         renderPassDescriptor2D.colorAttachments[0].resolveTexture = drawable.texture
 
         if let renderEncoder2D = commandBuffer.makeRenderCommandEncoder(descriptor: renderPassDescriptor2D) {
-            
             drawTile(renderEncoder: renderEncoder2D)
-            
             delegate.draw2D(renderEncoder: renderEncoder2D)
             renderEncoder2D.endEncoding()
         }
@@ -225,5 +218,4 @@ class MetalEngine {
         textureDescriptor.resourceOptions = .storageModePrivate
         return device.makeTexture(descriptor: textureDescriptor)!
     }
-    
 }

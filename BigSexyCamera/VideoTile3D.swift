@@ -26,7 +26,7 @@ class VideoTile3D {
     private(set) var frameTop: Float = -128.0
     private(set) var frameBottom: Float = 128.0
     private(set) var frameWidth: Float = 256.0
-    private(set) var frameHeight: Float = -256.0
+    private(set) var frameHeight: Float = 256.0
     
     private(set) var textureWidth = 0
     private(set) var textureHeight = 0
