@@ -27,7 +27,7 @@ class GroovyTile3DYCBCR {
     
     var _grid = [[GroovyTile3DYCBCRNode]]()
     
-    var fitFrame = OversizedFrameFixerResult()
+    //var fitFrame = OversizedFrameFixerResult()
     
     private var _cellWidthArray = [Int]()
     private var _cellHeightArray = [Int]()
@@ -46,6 +46,12 @@ class GroovyTile3DYCBCR {
     
     private(set) var textureY: MTLTexture?
     private(set) var textureCBCR: MTLTexture?
+    
+    private var startU: Float = 0.0
+    private var startV: Float = 0.0
+    
+    private var endU: Float = 1.0
+    private var endV: Float = 1.0
     
     var uniformsVertex = UniformsSpriteNodeIndexedVertex()
     private(set) var uniformsVertexBuffer: MTLBuffer!
@@ -67,11 +73,11 @@ class GroovyTile3DYCBCR {
     }
     
     lazy var gridWidth: Int = {
-        2
+        34
     }()
     
     lazy var gridHeight: Int = {
-        2
+        64
     }()
     
     func load() {
@@ -121,12 +127,12 @@ class GroovyTile3DYCBCR {
     
     private func fit() {
         
-        fitFrame = OversizedFrameFixer.fitPortrait(frameX: frameLeft,
-                                                   frameY: frameTop,
-                                                   frameWidth: frameWidth,
-                                                   frameHeight: frameHeight,
-                                                   textureWidth: textureWidth,
-                                                   textureHeight: textureHeight)
+        let fitFrame = OversizedFrameFixer.fitPortrait(frameX: frameLeft,
+                                                       frameY: frameTop,
+                                                       frameWidth: frameWidth,
+                                                       frameHeight: frameHeight,
+                                                       textureWidth: textureWidth,
+                                                       textureHeight: textureHeight)
         
 
         vertexData[0].x = fitFrame.topLeft.x
@@ -153,6 +159,12 @@ class GroovyTile3DYCBCR {
         print("vd[1] = { \(vertexData[1].u), \(vertexData[1].v) }")
         print("vd[2] = { \(vertexData[2].u), \(vertexData[2].v) }")
         print("vd[3] = { \(vertexData[3].u), \(vertexData[3].v) }")
+        
+        startU = vertexData[1].v
+        startV = vertexData[0].u
+        
+        endU = vertexData[0].v
+        endV = vertexData[2].u
         
         
     }
@@ -203,20 +215,15 @@ class GroovyTile3DYCBCR {
                                 width: width,
                                 height: height)
                 
-                var xp1 = (left - frameLeft) / frameWidth
-                var xp2 = (right - frameLeft) / frameWidth
+                var xp1 = (right - frameLeft) / frameWidth
+                var xp2 = (left - frameLeft) / frameWidth
+                
+                xp1 = (1.0 - xp1)
+                xp2 = (1.0 - xp2)
+                
                 var yp1 = (top - frameTop) / frameHeight
                 var yp2 = (bottom - frameTop) / frameHeight
-                
-                print("xp [\(xp1) \(xp2)] yp [\(yp1) \(yp2)]")
-                
-                var u1 = fitFrame.topLeft.u + (fitFrame.topRight.u - fitFrame.topLeft.u) * xp1
-                var u2 = fitFrame.topLeft.u + (fitFrame.topRight.u - fitFrame.topLeft.u) * xp2
-                
-                var v1 = fitFrame.topLeft.u + (fitFrame.topRight.u - fitFrame.topLeft.u) * xp1
-                var v2 = fitFrame.topLeft.u + (fitFrame.topRight.u - fitFrame.topLeft.u) * xp2
-                
-                
+
                 
                 //vd[0] = { 0.0, 0.8078818 }  { 0.0, 0.19211823 }
                 //vd[1] =
@@ -244,38 +251,72 @@ class GroovyTile3DYCBCR {
                 result.bottomRight.v = startU
                 */
                 
-                _grid[x][y].set(topLeftU: yp1,
-                                topLeftV: xp2,
-                                topRightU: yp1,
-                                topRightV: xp1,
-                                bottomLeftU: yp2,
-                                bottomLeftV: xp2,
-                                bottomRightU: yp2,
-                                bottomRightV: xp1)
-                
                 /*
-                _grid[x][y].set(topLeftU: yp1,
-                                topLeftV: xp2,
-                                topRightU: yp1,
-                                topRightV: xp1,
-                                bottomLeftU: yp2,
-                                bottomLeftV: xp2,
-                                bottomRightU: yp2,
-                                bottomRightV: xp1)
+                _grid[0][0].set(topLeftU: 0.0,
+                                topLeftV: 1.0,
+                                topRightU: 0.0,
+                                topRightV: 0.5,
+                                bottomLeftU: 1.0,
+                                bottomLeftV: 1.0,
+                                bottomRightU: 1.0,
+                                bottomRightV: 0.5)
+                _grid[1][0].set(topLeftU: 0.0,
+                                topLeftV: 0.5,
+                                topRightU: 0.0,
+                                topRightV: 0.0,
+                                bottomLeftU: 1.0,
+                                bottomLeftV: 0.5,
+                                bottomRightU: 1.0,
+                                bottomRightV: 0.0)
                 */
                 
+                var u1 = startU + (endU - startU) * xp1
+                var u2 = startU + (endU - startU) * xp2
+                
+                var v1 = startV + (endV - startV) * yp1
+                var v2 = startV + (endV - startV) * yp2
+                
+                _grid[x][y].set(topLeftU: v1,
+                                topLeftV: u2,
+                                topRightU: v1,
+                                topRightV: u1,
+                                bottomLeftU: v2,
+                                bottomLeftV: u2,
+                                bottomRightU: v2,
+                                bottomRightV: u1)
+                
                 /*
-                _grid[x][y].set(topLeftU: xp1,
-                                topLeftV: yp1,
-                                topRightU: xp2,
-                                topRightV: yp1,
-                                bottomLeftU: xp1,
-                                bottomLeftV: yp2,
-                                bottomRightU: xp2,
-                                bottomRightV: yp2)
+                _grid[x][y].set(topLeftU: yp1,
+                                topLeftV: xp2,
+                                topRightU: yp1,
+                                topRightV: xp1,
+                                bottomLeftU: yp2,
+                                bottomLeftV: xp2,
+                                bottomRightU: yp2,
+                                bottomRightV: xp1)
                 */
             }
         }
+        
+        /*
+        _grid[0][0].set(topLeftU: 0.0,
+                        topLeftV: 1.0,
+                        topRightU: 0.0,
+                        topRightV: 0.5,
+                        bottomLeftU: 1.0,
+                        bottomLeftV: 1.0,
+                        bottomRightU: 1.0,
+                        bottomRightV: 0.5)
+        _grid[1][0].set(topLeftU: 0.0,
+                        topLeftV: 0.5,
+                        topRightU: 0.0,
+                        topRightV: 0.0,
+                        bottomLeftU: 1.0,
+                        bottomLeftV: 0.5,
+                        bottomRightU: 1.0,
+                        bottomRightV: 0.0)
+        */
+        
         
         
     }
